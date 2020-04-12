@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registration{% endblock %}
+{% block body %}
+<div class="container-fluid">
+  		<header>
+  			<div class="row justify-content-between">
+  				<div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">
+  					<h1>
+		  				🍕Долго пицца
+		  			</h1>
+  				</div>
+	  			<div class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+	  				<div class="autorization">
+	  					<button class="login">Вход</button>
+	  				</div>
+	  			</div>	  			
+	  		</div>
+  		</header>
+  		<div class="form">
+  			<h3 class="form_header registration_header">Регистрация</h3>
+	  		<form action="" method="">
+	  			<input type="text" name="name" value="" class="text_input" placeholder="ФИО" required /> <br />
+	  			<input type="email" name="email" value="" class="text_input" placeholder="Почта" required /> <br />
+	  			<input type="password" name="password" value="" class="text_input" placeholder="Пароль" required /> <br />
+	  			<input type="text" name="adress" value="" class="text_input" placeholder="ФИО" required /> <br />
+	  			<input type="submit" value="Зарегистрироваться" class="submit_button" />
+	  		</form>
+	  	</div>
+	  </div>
+{% endblock %}
