@@ -4,7 +4,7 @@ namespace MyFunctions;
 class Orders
 {
     const FILEINFO = 'orders.txt';
-    const AMOUNTOFINFO = 6;
+    const AMOUNTOFINFO = 5;
     public static function get_orders($arrayOfOrders)
     {
         $arrayOfInfo = file(self::FILEINFO);
@@ -13,6 +13,7 @@ class Orders
 	    $countPosition = 0;
 	    while ($counter < count($arrayOfInfo)){
 	        array_push($arrayOfOrders, []);
+	        $arrayOfOrders[$countPosition] = $arrayOfOrders[$countPosition] + ['number' => '#' . strval($countPosition + 1)];
 	        while ($inserted_counter < self::AMOUNTOFINFO){
 	            list($key, $value) = explode(':', $arrayOfInfo[$counter]);
 

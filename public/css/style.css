@@ -1,10 +1,21 @@
 /*============================HEADER============================*/
+a:hover
+{
+	text-decoration: none;
+	color: #000;
+}
+a
+{
+	text-decoration: none;
+	color: #000;
+}
 h1
 {
 	text-transform: uppercase;
 	font: normal bold 24px/28px Arial;
 	align-items: center;
 	margin-left: 74px;
+	color: #000;
 }
 header
 {
