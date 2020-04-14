@@ -2,11 +2,7 @@
 h1
 {
 	text-transform: uppercase;
-	font-family: Arial;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 24px;
-	line-height: 28px;
+	font: normal bold 24px/28px Arial;
 	align-items: center;
 	margin-left: 74px;
 }
@@ -19,45 +15,36 @@ button
 	background: none;
     border: 2px solid #F2960B;
     border-radius: 10px;
-    font-family: Roboto;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 18px;
-	line-height: 21px;
+	font: normal normal 18px/21px Roboto;
 	align-items: center;
 	text-align: center;
 	color: #333333;
 }
 button:hover
 {
+	transition: 0.4s;
 	background-color: #F2960B;
 	color: #fff;
 }
 .registration
 {
-	margin-top: -18px;
     padding: 8px 31px;
-    margin-right: 20px;
+	margin: -18px 20px 0 0;
 }
 .login
 {
 	margin-top: -18px;
     padding: 8px 24px;
 }
-.autorization
+.authorization
 {
 	margin-top: -10px;
 }
 /*=========================НАВИГАЦИЯ============================*/
 .nav
 {
-	margin-top: 25px;
-	margin-left: 73px;
-	font-family: Roboto;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 16px;
-	line-height: 19px;
+	margin: 25px 0 0 73px;
+	font: normal normal 16px/19px Roboto;
 	color: #000000;
 }
 .nav a
@@ -80,14 +67,12 @@ button:hover
 
 .pizza_menu
 {
-	padding-right: 37px;
-    padding-left: 10px;
+	padding: 0 37px 0 10px;
 }
 .menu-container
 {
 	padding: 0;
-	margin-left: 64px;
-    margin-top: 30px;
+	margin:  30px 0 0 64px;
     max-width: 1280px;
 }
 .pizza_pic
@@ -97,35 +82,22 @@ button:hover
 }
 .about_pizza
 {
-	margin-top: 24px;
-    margin-left: 4px;
+	margin: 24px 0 0 4px;
 }
 .pizza_name
 {
-	font-family: Roboto;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 22px;
-	line-height: 26px;
+	font: normal normal 22px/26px Roboto;
 	color: #000000;
 }
 .pizza_description
 {
-	font-family: Roboto;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 16px;
-	line-height: 19px;
+	font: normal normal 16px/19px Roboto;
 	margin-bottom: 27px;
 	height: 57px;
 }
 .cost
 {
-	font-family: Roboto;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 22px;
-	line-height: 26px;
+	font: normal normal 22px/26px Roboto;
 }
 .buying
 {
@@ -147,11 +119,7 @@ button:hover
 }
 .header
 {
-	font-family: Roboto;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 22px;
-	line-height: 26px;
+	font: normal bold 22px/26px Roboto;
 	color: #000000;
 	background: rgba(236, 146, 12, 0.3);
 }
@@ -200,7 +168,7 @@ th, td
 {
 	width: 500px;
 	height: 60px;
-	padding-left: 28px;
+	padding: 0 28px 0 28px;
 	margin-bottom: 20px;
 	font: normal normal 24px/28px Roboto;
 	color: #333333;
@@ -212,6 +180,9 @@ th, td
 .text_input:focus,
 .submit_button:focus
 {
+
+	padding-left: 27px;
+	padding-right: 27px;
 	border: 2px solid #F2960B;
 	outline: none;
 }

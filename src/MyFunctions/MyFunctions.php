@@ -1,50 +1,61 @@
 <?php
 namespace MyFunctions;
 
-class MyFunctions
+class Orders
 {
-    public static function get_orders($array)
+    const FILEINFO = 'orders.txt';
+    const AMOUNTOFINFO = 6;
+    public static function get_orders($arrayOfOrders)
     {
-        $str = file('orders.txt');
-	    $i = 0;
-	    $i_array = 0;
-	    $count = 0;
-	    $array = [];
-	    while ($i < count($str)){
-	        array_push($array, []);
-	        while ($i_array < 6){
-	            list($key, $value) = explode(':', $str[$i]);
+        $arrayOfInfo = file(self::FILEINFO);
+	    $counter = 0;
+	    $inserted_counter = 0;
+	    $countPosition = 0;
+	    while ($counter < count($arrayOfInfo)){
+	        array_push($arrayOfOrders, []);
+	        while ($inserted_counter < self::AMOUNTOFINFO){
+	            list($key, $value) = explode(':', $arrayOfInfo[$counter]);
 
-	            $array[$count][$key] = $value;
-	            $i++;
-	            $i_array++;
+                $arrayOfOrders[$countPosition][$key] = $value;
+                $counter++;
+                $inserted_counter++;
 	        }
-	        $i++;
-	        $count++;
-	        $i_array = 0;
+            $counter++;
+            $countPosition++;
+            $inserted_counter = 0;
 	    }
-	    return $array;
+	    return $arrayOfOrders;
     }
-    public static function get_menu($array)
-    {
-        $str = file('menu.txt');
-	    $i = 0;
-	    $i_array = 0;
-	    $count = 0;
-	    $array = [];
-	    while ($i < count($str)){
-	        array_push($array, []);
-	        while ($i_array < 4){
-	            list($key, $value) = explode(':', $str[$i]);
+}
 
-	            $array[$count][$key] = $value;
-	            $i++;
-	            $i_array++;
-	        }
-	        $i++;
-	        $count++;
-	        $i_array = 0;
-	    }
-	    return $array;
+/**
+ * 
+ */
+class Menu
+{
+    const FILEINFO = 'menu.txt';
+    const AMOUNTOFINFO = 4;
+	public static function get_menu($arrayOfMenu)
+    {
+        $fileInfo = 'menu.txt';
+        $amountOfInfo = 4;
+        $arrayOfInfo = file(self::FILEINFO);
+        $counter = 0;
+        $inserted_counter = 0;
+        $countPosition = 0;
+        while ($counter < count($arrayOfInfo)){
+            array_push($arrayOfMenu, []);
+            while ($inserted_counter < self::AMOUNTOFINFO){
+                list($key, $value) = explode(':', $arrayOfInfo[$counter]);
+
+                $arrayOfMenu[$countPosition][$key] = $value;
+                $counter++;
+                $inserted_counter++;
+            }
+            $counter++;
+            $countPosition++;
+            $inserted_counter = 0;
+        }
+        return $arrayOfMenu;
     }
 }
