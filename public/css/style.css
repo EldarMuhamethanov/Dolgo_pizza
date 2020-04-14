@@ -38,6 +38,7 @@ button:hover
 }
 .authorization
 {
+	margin-right: 4%;
 	margin-top: -10px;
 }
 /*=========================НАВИГАЦИЯ============================*/
@@ -56,6 +57,7 @@ button:hover
 .nav a:hover,
 .nav a:focus
 {
+	transition: 0.4s;
 	border-bottom: 2px solid #F2960B;
 }
 .nav li
@@ -94,6 +96,7 @@ button:hover
 	font: normal normal 16px/19px Roboto;
 	margin-bottom: 27px;
 	height: 57px;
+	overflow: auto;
 }
 .cost
 {
@@ -144,7 +147,7 @@ th, td
 {
 	width: 139px;
 }
-.adress
+.address
 {
 	width: 203px;
 }
@@ -180,9 +183,7 @@ th, td
 .text_input:focus,
 .submit_button:focus
 {
-
-	padding-left: 27px;
-	padding-right: 27px;
+	padding: 0 27px;
 	border: 2px solid #F2960B;
 	outline: none;
 }

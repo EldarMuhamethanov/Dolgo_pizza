@@ -1,0 +1,15 @@
+<header>
+  <div class="row justify-content-between">
+    <h1>
+        🍕Долго пицца
+    </h1>
+    <div class="authorization">
+      {% if page == 'menu' or page == 'login' %}
+          <button class="registration">Регистрация</button>
+      {% endif %}
+      {% if page == 'menu' or page == 'registration' %}
+          <button class="login">Вход</button>
+      {% endif %}
+    </div>
+  </div>
+</header>
