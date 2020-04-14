@@ -5,7 +5,7 @@ class MyFunctions
 {
     public static function get_orders($array)
     {
-        $str = file('E:\Study_work\Project\Dolgo_pizza\src\MyFunctions\orders.txt');
+        $str = file('orders.txt');
 	    $i = 0;
 	    $i_array = 0;
 	    $count = 0;
@@ -27,7 +27,7 @@ class MyFunctions
     }
     public static function get_menu($array)
     {
-        $str = file('E:\Study_work\Project\Dolgo_pizza\src\MyFunctions\menu.txt');
+        $str = file('menu.txt');
 	    $i = 0;
 	    $i_array = 0;
 	    $count = 0;

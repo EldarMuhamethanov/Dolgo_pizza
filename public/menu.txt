@@ -32,3 +32,8 @@ image:pizza3
 title_pizza:Еще одна тестовая пицца
 description:Надеюсь все работает хорошо
 cost:520
+
+image:pizza1
+title_pizza:Тестовая пицца
+description:Вроде все работает как надо СУПЕР!!!
+cost:1000
