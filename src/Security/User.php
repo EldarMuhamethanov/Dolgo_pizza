@@ -31,7 +31,7 @@ class User implements UserInterface
         return $this->name;
     }
 
-    public function setName( $name): self
+    public function setName($name): self
     {
         $this->name = $name;
 
@@ -43,7 +43,7 @@ class User implements UserInterface
         return $this->address;
     }
 
-    public function setAddress( $address): self
+    public function setAddress($address): self
     {
         $this->address = $address;
 
@@ -55,7 +55,7 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function setEmail( $email): self
+    public function setEmail($email): self
     {
         $this->email = $email;
 

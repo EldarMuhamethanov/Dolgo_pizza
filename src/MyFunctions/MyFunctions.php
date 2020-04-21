@@ -73,4 +73,17 @@ class Users{
         }
         return $arrayOfUsers;
     }
+
+    public static function isExist($dataUser){
+        $arrayOfInfo = file(self::FILEINFO);
+        $exist = false;
+        $arrayOfUsers = [];
+        for($i= 0; $i< count($arrayOfInfo); $i++){
+            $arrayOfUsers[$i] = (array) json_decode($arrayOfInfo[$i]);
+            if ($arrayOfUsers[$i]['email'] == $dataUser['email']) {
+                $exist = true;
+            }
+        }
+        return $exist;
+    }
 }

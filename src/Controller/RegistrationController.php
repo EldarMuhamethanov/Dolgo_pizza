@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use MyFunctions\Users;
 
 class RegistrationController extends AbstractController
 {
@@ -35,7 +36,6 @@ class RegistrationController extends AbstractController
             $user->setAddress(
                 $form->get('address')->getData()
             );
-
             $user->setName(
                 $form->get('name')->getData()
             );
@@ -45,15 +45,21 @@ class RegistrationController extends AbstractController
                 'password' => $user->getName(),
                 'address' => $user->getAddress(),
             ];
+            if (!Users::isExist($register_form)) {
+                fwrite($fp, json_encode($register_form) . "\n");
 
-            fwrite($fp, json_encode($register_form) . "\n");
+                $this->addFlash(
+                    'success',
+                    'Вы добавлены в систему'
+                );
 
-            $this->addFlash(
-                'success',
-                'Вы добавлены в систему'
-            );
-
-            return $this->redirect("/menu", 308);
+                return $this->redirect("/menu", 308);
+            } else {
+                $this->addFlash(
+                    'warning',
+                    'Пользователь существует'
+                );
+            }
             // do anything else you need here, like send an email
 
         }
