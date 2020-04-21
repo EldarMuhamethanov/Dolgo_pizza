@@ -19,17 +19,21 @@ class RegistrationController extends AbstractController
     public function register(Request $request): Response
     {
         $user = new User();
+        $file_name = 'data.json';
+        $fp = fopen($file_name, 'a');
+
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $register_form = $request->request->all();
+
             $user->setPassword(
                 $form->get('password')->getData()
             );
             $user->setEmail(
                 $form->get('email')->getData()
             );
-
             $user->setAddress(
                 $form->get('address')->getData()
             );
@@ -37,12 +41,11 @@ class RegistrationController extends AbstractController
             $user->setName(
                 $form->get('name')->getData()
             );
-            $file_name = 'data.json';
-            file_put_contents($file_name, json_encode($form));
+            fwrite($fp, json_encode($register_form) . "\n");
 
+            return $this->redirect("/menu", 308);
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('/menu');
         }
 
         return $this->render('registration/register.html.twig', [

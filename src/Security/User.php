@@ -2,21 +2,17 @@
 
 namespace App\Security;
 
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use App\Security\UserProvider;
 use App\Controller\RegistrationController;
 
-/**
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
- */
 class User implements UserInterface
 {
+    private $email;
+
+
     /**
      * @var string The hashed password
      */
-    private $email;
-
     private $password;
 
     private $address;
@@ -35,7 +31,7 @@ class User implements UserInterface
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName( $name): self
     {
         $this->name = $name;
 
@@ -47,7 +43,7 @@ class User implements UserInterface
         return $this->address;
     }
 
-    public function setAddress(string $address): self
+    public function setAddress( $address): self
     {
         $this->address = $address;
 
@@ -59,7 +55,7 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail( $email): self
     {
         $this->email = $email;
 
@@ -103,7 +99,7 @@ class User implements UserInterface
         return (string) $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword( $password): self
     {
         $this->password = $password;
 
