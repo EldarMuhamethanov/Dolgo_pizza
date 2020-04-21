@@ -27,9 +27,6 @@ class Orders
 	    }
 	    return $arrayOfOrders;
     }
-    public static function set_order() {
-
-    }
 }
 
 /**
@@ -62,5 +59,18 @@ class Menu
             $inserted_counter = 0;
         }
         return $arrayOfMenu;
+    }
+}
+
+class Users{
+    const FILEINFO = 'data.json';
+    public static function get_users(){
+        $arrayOfInfo = file(self::FILEINFO);
+        $arrayOfUsers = [];
+        for($i= 0; $i< count($arrayOfInfo); $i++){
+            $arrayOfUsers[$i] = (array) json_decode($arrayOfInfo[$i]);
+            $arrayOfUsers[$i]['number'] = $i + 1;
+        }
+        return $arrayOfUsers;
     }
 }

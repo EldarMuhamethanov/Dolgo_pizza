@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List of user{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        {% include 'header.html.twig' with {'page': 'menu'} %}
+        <table class="order_table">
+            <tr class="header">
+                <th class="number">Номер</th>
+                <th class="name_order">ФИО</th>
+                <th class="price">Почта</th>
+                <th class="address">Адрес</th>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td class="number">#{{ user['number'] }}</td>
+                    <td class="name_order">{{ user['name'] }}</td>
+                    <td class="price">{{ user['email'] }}</td>
+                    <td class="address">{{ user['address'] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

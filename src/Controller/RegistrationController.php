@@ -45,6 +45,7 @@ class RegistrationController extends AbstractController
                 'password' => $user->getName(),
                 'address' => $user->getAddress(),
             ];
+
             fwrite($fp, json_encode($register_form) . "\n");
 
             $this->addFlash(
