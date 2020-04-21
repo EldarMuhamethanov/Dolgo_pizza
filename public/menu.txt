@@ -37,3 +37,13 @@ image:pizza1
 title_pizza:Тестовая пицца
 description:Вроде все работает как надо СУПЕР!!!
 cost:1000
+
+image:pizza2
+title_pizza:50 оттенков пиццы
+description:Ананасы и маринованая сельдь. Ты точно этого хочешь больной?
+cost:420
+
+image:pizza4
+title_pizza:Ваня придумай название
+description:У меня фантазия на исходе а еще 3 макета рисовать
+cost:520

@@ -27,6 +27,9 @@ class Orders
 	    }
 	    return $arrayOfOrders;
     }
+    public static function set_order() {
+
+    }
 }
 
 /**
@@ -53,6 +56,7 @@ class Menu
                 $counter++;
                 $inserted_counter++;
             }
+            $arrayOfMenu[$countPosition] = $arrayOfMenu[$countPosition] + ['id' => strval($countPosition + 1)];
             $counter++;
             $countPosition++;
             $inserted_counter = 0;
