@@ -20,8 +20,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add( 'name',TextType::class, array('label' => false, 'attr' => array(
                 'class' => 'text_input',
-                'placeholder' => 'ФИО',
-                'name' => 'password')))
+                'placeholder' => 'ФИО')))
             ->add('email', TextType::class, array('label' => false, 'attr' => array(
                 'class' => 'text_input',
                 'placeholder' => 'Почта',

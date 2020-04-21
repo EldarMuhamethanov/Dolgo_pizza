@@ -26,8 +26,6 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $register_form = $request->request->all();
-
             $user->setPassword(
                 $form->get('password')->getData()
             );
@@ -41,7 +39,14 @@ class RegistrationController extends AbstractController
             $user->setName(
                 $form->get('name')->getData()
             );
+            $register_form = [
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+                'password' => $user->getName(),
+                'address' => $user->getAddress(),
+            ];
             fwrite($fp, json_encode($register_form) . "\n");
+
             $this->addFlash(
                 'success',
                 'Вы добавлены в систему'
