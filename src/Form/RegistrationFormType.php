@@ -11,16 +11,26 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name' , TextType::class, array('attr' => array('class' => 'form-control')))
-            ->add('email')
-            ->add('password')
-            ->add('address');
+            ->add( 'name',TextType::class, array('label' => false, 'attr' => array(
+                'class' => 'text_input',
+                'placeholder' => 'ФИО',
+                'name' => 'password')))
+            ->add('email', TextType::class, array('label' => false, 'attr' => array(
+                'class' => 'text_input',
+                'placeholder' => 'Почта')))
+            ->add('password', TextType::class, array('label' => false, 'attr' => array(
+                'class' => 'text_input',
+                'placeholder' => 'Пароль')))
+            ->add('address', TextType::class, array('label' => false, 'attr' => array(
+                'class' => 'text_input',
+                'placeholder' => 'Адресс доставки')));
     }
 
     public function configureOptions(OptionsResolver $resolver)
