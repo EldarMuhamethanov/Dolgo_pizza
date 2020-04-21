@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/registration", name="app_register")
      * @param Request $request
      * @return Response
      */
@@ -42,6 +42,10 @@ class RegistrationController extends AbstractController
                 $form->get('name')->getData()
             );
             fwrite($fp, json_encode($register_form) . "\n");
+            $this->addFlash(
+                'success',
+                'Вы добавлены в систему'
+            );
 
             return $this->redirect("/menu", 308);
             // do anything else you need here, like send an email

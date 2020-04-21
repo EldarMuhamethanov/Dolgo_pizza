@@ -10,6 +10,3 @@ login:
     path: /login
     controller: App\Controller\LoginController::index
 
-registration:
-    path: /registration
-    controller: App\Controller\RegistrationController::index

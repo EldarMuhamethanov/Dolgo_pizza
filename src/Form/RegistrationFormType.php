@@ -24,7 +24,8 @@ class RegistrationFormType extends AbstractType
                 'name' => 'password')))
             ->add('email', TextType::class, array('label' => false, 'attr' => array(
                 'class' => 'text_input',
-                'placeholder' => 'Почта')))
+                'placeholder' => 'Почта',
+                'type' => 'email')))
             ->add('password', TextType::class, array('label' => false, 'attr' => array(
                 'class' => 'text_input',
                 'placeholder' => 'Пароль')))
