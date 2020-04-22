@@ -45,14 +45,21 @@ class RegistrationController extends AbstractController
                 'address' => $user->getAddress(),
             ];
             if (!WorkWithUsers::isExist($register_form)) {
-                fwrite($fp, json_encode($register_form,JSON_UNESCAPED_UNICODE) . "\n");
+                if (WorkWithUsers::checkPasswordStrength($register_form['password'])){
+                    fwrite($fp, json_encode($register_form,JSON_UNESCAPED_UNICODE) . "\n");
 
-                $this->addFlash(
-                    'success',
-                    'Вы добавлены в систему'
-                );
+                    $this->addFlash(
+                        'success',
+                        'Вы добавлены в систему'
+                    );
 
-                return $this->redirect("/menu", 308);
+                    return $this->redirect("/menu", 308);
+                } else {
+                    $this->addFlash(
+                        'warning',
+                        'Слишком просто пароль, попробуйте другой'
+                    );
+                }
             } else {
                 $this->addFlash(
                     'warning',
@@ -60,7 +67,7 @@ class RegistrationController extends AbstractController
                 );
                 return $this->redirect("/login", 308);
             }
-                    }
+        }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
