@@ -10,3 +10,12 @@ login:
     path: /login
     controller: App\Controller\LoginController::index
 
+usersList:
+    path: /users
+    controller: App\Controller\ListOfUsersController::index
+
+registration:
+    path: /registration
+    controller: App\Controller\RegistrationController::index
+
+

@@ -8,16 +8,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use MyFunctions\Users;
+use MyFunctions\WorkWithUsers;
 
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/registration", name="app_register")
      * @param Request $request
      * @return Response
      */
-    public function register(Request $request): Response
+    public function index(Request $request): Response
     {
         $user = new User();
         $file_name = 'data.json';
@@ -42,11 +41,11 @@ class RegistrationController extends AbstractController
             $register_form = [
                 'name' => $user->getName(),
                 'email' => $user->getEmail(),
-                'password' => $user->getName(),
+                'password' => $user->getPassword(),
                 'address' => $user->getAddress(),
             ];
-            if (!Users::isExist($register_form)) {
-                fwrite($fp, json_encode($register_form) . "\n");
+            if (!WorkWithUsers::isExist($register_form)) {
+                fwrite($fp, json_encode($register_form,JSON_UNESCAPED_UNICODE) . "\n");
 
                 $this->addFlash(
                     'success',
@@ -59,10 +58,9 @@ class RegistrationController extends AbstractController
                     'warning',
                     'Пользователь существует'
                 );
+                return $this->redirect("/login", 308);
             }
-            // do anything else you need here, like send an email
-
-        }
+                    }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),

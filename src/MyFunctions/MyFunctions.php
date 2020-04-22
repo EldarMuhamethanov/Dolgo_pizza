@@ -5,8 +5,9 @@ class Orders
 {
     const FILEINFO = 'orders.txt';
     const AMOUNTOFINFO = 5;
-    public static function get_orders($arrayOfOrders)
+    public static function getOrders()
     {
+        $arrayOfOrders = [];
         $arrayOfInfo = file(self::FILEINFO);
 	    $counter = 0;
 	    $inserted_counter = 0;
@@ -36,10 +37,9 @@ class Menu
 {
     const FILEINFO = 'menu.txt';
     const AMOUNTOFINFO = 4;
-	public static function get_menu($arrayOfMenu)
+	public static function getMenu()
     {
-        $fileInfo = 'menu.txt';
-        $amountOfInfo = 4;
+        $arrayOfMenu = [];
         $arrayOfInfo = file(self::FILEINFO);
         $counter = 0;
         $inserted_counter = 0;
@@ -62,9 +62,9 @@ class Menu
     }
 }
 
-class Users{
+class WorkWithUsers{
     const FILEINFO = 'data.json';
-    public static function get_users(){
+    public static function getUsers(){
         $arrayOfInfo = file(self::FILEINFO);
         $arrayOfUsers = [];
         for($i= 0; $i< count($arrayOfInfo); $i++){

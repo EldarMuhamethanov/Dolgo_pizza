@@ -3,16 +3,11 @@
 namespace App\Security;
 
 use Symfony\Component\Security\Core\User\UserInterface;
-use App\Controller\RegistrationController;
 
 class User implements UserInterface
 {
     private $email;
 
-
-    /**
-     * @var string The hashed password
-     */
     private $password;
 
     private $address;

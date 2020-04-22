@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -21,11 +22,11 @@ class RegistrationFormType extends AbstractType
             ->add( 'name',TextType::class, array('label' => false, 'attr' => array(
                 'class' => 'text_input',
                 'placeholder' => 'ФИО')))
-            ->add('email', TextType::class, array('label' => false, 'attr' => array(
+            ->add('email', EmailType::class, array('label' => false, 'attr' => array(
                 'class' => 'text_input',
                 'placeholder' => 'Почта',
                 'type' => 'email')))
-            ->add('password', TextType::class, array('label' => false, 'attr' => array(
+            ->add('password', PasswordType::class, array('label' => false, 'attr' => array(
                 'class' => 'text_input',
                 'placeholder' => 'Пароль')))
             ->add('address', TextType::class, array('label' => false, 'attr' => array(
