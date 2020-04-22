@@ -14,7 +14,7 @@ class Orders
 	    $countPosition = 0;
 	    while ($counter < count($arrayOfInfo)){
 	        array_push($arrayOfOrders, []);
-	        $arrayOfOrders[$countPosition] = $arrayOfOrders[$countPosition] + ['number' => '#' . strval($countPosition + 1)];
+	        $arrayOfOrders[$countPosition] = $arrayOfOrders[$countPosition] + ['number' => strval($countPosition + 1)];
 	        while ($inserted_counter < self::AMOUNTOFINFO){
 	            list($key, $value) = explode(':', $arrayOfInfo[$counter]);
                 $arrayOfOrders[$countPosition][$key] = $value;
@@ -61,7 +61,7 @@ class Menu
 }
 
 class WorkWithUsers{
-    const FILEINFO = 'data.json';
+    const FILEINFO = 'users.json';
     public static function getUsers(){
         $arrayOfInfo = file(self::FILEINFO);
         $arrayOfUsers = [];

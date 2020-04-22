@@ -19,7 +19,7 @@ class RegistrationController extends AbstractController
     public function index(Request $request): Response
     {
         $user = new User();
-        $file_name = 'data.json';
+        $file_name = 'users.json';
         $fp = fopen($file_name, 'a');
 
         $form = $this->createForm(RegistrationFormType::class, $user);

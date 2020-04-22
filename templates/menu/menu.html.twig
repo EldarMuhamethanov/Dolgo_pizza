@@ -30,7 +30,7 @@
 			  	  		</p>
 			  	  		<p>
 			  	  			<span class="cost">от {{ pizza['cost'] }}р</span>
-			  	  			<button class="buying" id="{{ pizza['id'] }}">Купить</button>
+			  	  			<input type="submit" value="Купить" class="buying" id="{{ pizza['id'] }}"></input>
 			  	  		</p>	
 		  	  		</div>
 		  	  	</div>
@@ -50,7 +50,7 @@
 	  	  		</tr>
 	  	  		{% for number in orders %}
   	  			<tr>
-	  	  			<td class="number">{{ number['number']}}</td>
+	  	  			<td class="number">#{{ number['number']}}</td>
 	  	  			<td class="name_order">{{ number['pizza'] }}</td>
 	  	  			<td class="price">{{ number['cost'] }}</td>
 	  	  			<td class="client">{{ number['user'] }}</td>

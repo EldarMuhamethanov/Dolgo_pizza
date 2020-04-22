@@ -64,6 +64,19 @@
 	float: right;
     padding: 8px 14px;
     margin-top: -9px;
+    background: none;
+    border: 2px solid #F2960B;
+    border-radius: 10px;
+	font: normal normal 18px/21px Roboto;
+	align-items: center;
+	text-align: center;
+	color: #333333;
+}
+.buying:hover
+{
+	transition: 0.4s;
+	background-color: #F2960B;
+	color: #fff;
 }
 /*========================Заказы==========================*/
 .orders_page
