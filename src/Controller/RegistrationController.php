@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use MyFunctions\WorkWithUsers;
+use Users\UsersUtils;
 
 class RegistrationController extends AbstractController
 {
@@ -44,8 +44,8 @@ class RegistrationController extends AbstractController
                 'password' => $user->getPassword(),
                 'address' => $user->getAddress(),
             ];
-            if (!WorkWithUsers::isExist($register_form)) {
-                if (WorkWithUsers::checkPasswordStrength($register_form['password'])){
+            if (!UsersUtils::isExist($register_form)) {
+                if (UsersUtils::checkPasswordStrength($register_form['password'])){
                     fwrite($fp, json_encode($register_form,JSON_UNESCAPED_UNICODE) . "\n");
 
                     $this->addFlash(

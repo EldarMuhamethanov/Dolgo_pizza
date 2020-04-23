@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use MyFunctions\Menu;
-use MyFunctions\Orders;
+use Menu\Menu;
+use Orders\Orders;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +21,7 @@ class GetOrdersController extends AbstractController
             $menu = Menu::getMenu();
             $id = $_POST['id'];
             $menu = Orders::setOrders($menu[$id - 1]);
-            return new Response(json_encode(['success'=>1, 'msg'=> $id]));
+            return new Response(json_encode(['success'=>1]));
         }
     }
 }

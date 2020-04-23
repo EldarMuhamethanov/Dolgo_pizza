@@ -1,0 +1,17 @@
+<?php
+namespace Menu;
+
+class Menu
+{
+    const FILEINFO = 'menu.json';
+    public static function getMenu()
+    {
+        $arrayOfInfo = file(self::FILEINFO);
+        $arrayOfMenu = [];
+        for($i= 0; $i< count($arrayOfInfo); $i++) {
+            $arrayOfMenu[$i] = (array) json_decode($arrayOfInfo[$i]);
+            $arrayOfMenu[$i]['id'] = $i + 1;
+        }
+        return $arrayOfMenu;
+    }
+}

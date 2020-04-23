@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use MyFunctions\Menu;
-use MyFunctions\Orders;
+use Menu\Menu;
+use Orders\Orders;
 
 class MenuController extends AbstractController
 {

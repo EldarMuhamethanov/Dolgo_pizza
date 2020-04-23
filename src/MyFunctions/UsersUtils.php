@@ -1,51 +1,7 @@
 <?php
-namespace MyFunctions;
+namespace Users;
 
-class Orders
-{
-    const FILEINFO = 'orders.json';
-    public static function getOrders()
-    {
-        $arrayOfInfo = file(self::FILEINFO);
-        $arrayOfOrders = [];
-        for($i= 0; $i< count($arrayOfInfo); $i++) {
-            $arrayOfOrders[$i] = (array) json_decode($arrayOfInfo[$i]);
-            $arrayOfOrders[$i]['number'] = $i + 1;
-        }
-        return $arrayOfOrders;
-    }
-    public static function setOrders($pointOfMenu)
-    {
-        $fp = fopen(self::FILEINFO, 'a');
-        $arrayOfOrder = [
-            "pizza" => $pointOfMenu['title_pizza'],
-            "cost" => $pointOfMenu['cost'],
-            "user" => 'Имя пользователя',
-            "addres" => 'Адресс пользователя',
-            "status" => 'ready',];
-        fwrite($fp,"\n" . json_encode($arrayOfOrder,JSON_UNESCAPED_UNICODE));
-    }
-}
-
-/**
- * 
- */
-class Menu
-{
-    const FILEINFO = 'menu.json';
-	public static function getMenu()
-    {
-        $arrayOfInfo = file(self::FILEINFO);
-        $arrayOfMenu = [];
-        for($i= 0; $i< count($arrayOfInfo); $i++) {
-            $arrayOfMenu[$i] = (array) json_decode($arrayOfInfo[$i]);
-            $arrayOfMenu[$i]['id'] = $i + 1;
-        }
-        return $arrayOfMenu;
-    }
-}
-
-class WorkWithUsers{
+class UsersUtils{
     const FILEINFO = 'users.json';
     public static function getUsers(){
         $arrayOfInfo = file(self::FILEINFO);
@@ -61,6 +17,7 @@ class WorkWithUsers{
         $arrayOfInfo = file(self::FILEINFO);
         $arrayOfUsers = [];
         for($i= 0; $i< count($arrayOfInfo); $i++){
+            $arrayOfUsers[$i] = (array) json_decode($arrayOfInfo[$i]);
             if ($arrayOfUsers[$i]['email'] == $dataUser['email']) {
                 return true;
             }
