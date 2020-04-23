@@ -6,6 +6,7 @@ a:hover
 }
 a
 {
+	cursor: pointer;
 	text-decoration: none;
 	color: #000;
 }
@@ -33,6 +34,7 @@ button
 }
 button:hover
 {
+	cursor: pointer;
 	transition: 0.4s;
 	background-color: #F2960B;
 	color: #fff;

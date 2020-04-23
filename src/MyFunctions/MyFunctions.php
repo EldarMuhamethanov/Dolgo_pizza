@@ -3,29 +3,27 @@ namespace MyFunctions;
 
 class Orders
 {
-    const FILEINFO = 'orders.txt';
-    const AMOUNTOFINFO = 5;
+    const FILEINFO = 'orders.json';
     public static function getOrders()
     {
-        $arrayOfOrders = [];
         $arrayOfInfo = file(self::FILEINFO);
-	    $counter = 0;
-	    $inserted_counter = 0;
-	    $countPosition = 0;
-	    while ($counter < count($arrayOfInfo)){
-	        array_push($arrayOfOrders, []);
-	        $arrayOfOrders[$countPosition] = $arrayOfOrders[$countPosition] + ['number' => strval($countPosition + 1)];
-	        while ($inserted_counter < self::AMOUNTOFINFO){
-	            list($key, $value) = explode(':', $arrayOfInfo[$counter]);
-                $arrayOfOrders[$countPosition][$key] = $value;
-                $counter++;
-                $inserted_counter++;
-	        }
-            $counter++;
-            $countPosition++;
-            $inserted_counter = 0;
-	    }
-	    return $arrayOfOrders;
+        $arrayOfOrders = [];
+        for($i= 0; $i< count($arrayOfInfo); $i++) {
+            $arrayOfOrders[$i] = (array) json_decode($arrayOfInfo[$i]);
+            $arrayOfOrders[$i]['number'] = $i + 1;
+        }
+        return $arrayOfOrders;
+    }
+    public static function setOrders($pointOfMenu)
+    {
+        $fp = fopen(self::FILEINFO, 'a');
+        $arrayOfOrder = [
+            "pizza" => $pointOfMenu['title_pizza'],
+            "cost" => $pointOfMenu['cost'],
+            "user" => 'Имя пользователя',
+            "addres" => 'Адресс пользователя',
+            "status" => 'ready',];
+        fwrite($fp,"\n" . json_encode($arrayOfOrder,JSON_UNESCAPED_UNICODE));
     }
 }
 
@@ -34,27 +32,14 @@ class Orders
  */
 class Menu
 {
-    const FILEINFO = 'menu.txt';
-    const AMOUNTOFINFO = 4;
+    const FILEINFO = 'menu.json';
 	public static function getMenu()
     {
-        $arrayOfMenu = [];
         $arrayOfInfo = file(self::FILEINFO);
-        $counter = 0;
-        $inserted_counter = 0;
-        $countPosition = 0;
-        while ($counter < count($arrayOfInfo)){
-            array_push($arrayOfMenu, []);
-            while ($inserted_counter < self::AMOUNTOFINFO){
-                list($key, $value) = explode(':', $arrayOfInfo[$counter]);
-                $arrayOfMenu[$countPosition][$key] = $value;
-                $counter++;
-                $inserted_counter++;
-            }
-            $arrayOfMenu[$countPosition] = $arrayOfMenu[$countPosition] + ['id' => strval($countPosition + 1)];
-            $counter++;
-            $countPosition++;
-            $inserted_counter = 0;
+        $arrayOfMenu = [];
+        for($i= 0; $i< count($arrayOfInfo); $i++) {
+            $arrayOfMenu[$i] = (array) json_decode($arrayOfInfo[$i]);
+            $arrayOfMenu[$i]['id'] = $i + 1;
         }
         return $arrayOfMenu;
     }
@@ -74,15 +59,13 @@ class WorkWithUsers{
 
     public static function isExist($dataUser){
         $arrayOfInfo = file(self::FILEINFO);
-        $exist = false;
         $arrayOfUsers = [];
         for($i= 0; $i< count($arrayOfInfo); $i++){
-            $arrayOfUsers[$i] = (array) json_decode($arrayOfInfo[$i]);
             if ($arrayOfUsers[$i]['email'] == $dataUser['email']) {
-                $exist = true;
+                return true;
             }
         }
-        return $exist;
+        return false;
     }
 
     public static function checkPasswordStrength($userPass) {
