@@ -5,7 +5,7 @@
 {% endblock %}
 {% block title %}Menu Dolgo pizza{% endblock %}
 {% block body %}
-  	<div class="container-fluid">
+    <div class="container-fluid">
 	  {% include 'header.html.twig' with {'page': 'menu'} %}
   	  <div class="row">
   	  	<ul class="nav">
@@ -13,7 +13,7 @@
   	  			<a class="nav-link active menu" data-toggle="tab" href="#Menu">Меню</a>
   	  		</li>
   	  		<li>
-  	  			<a class="nav-link orders" data-toggle="tab" href="#Orders">Заказы</a>
+  	  			<a class="nav-link orders" data-toggle="tab" href="#Orders" id="orders_list">Заказы</a>
   	  		</li>
   	  	</ul>
   	  </div>
@@ -31,7 +31,7 @@
 			  	  		</p>
 			  	  		<p>
 			  	  			<span class="cost">от {{ pizza['cost'] }}р</span>
-			  	  			<input type="submit" value="Купить" class="buying" id="{{ pizza['id'] }}"></input>
+			  	  			<input type="submit" value="Купить" class="buying" id="{{ pizza['id'] }}">
 			  	  		</p>	
 		  	  		</div>
 		  	  	</div>
@@ -40,7 +40,7 @@
   	  		</div> 	
 	  	  </div>
 	  	  <div class="tab-pane orders_page" id="Orders">
-	  	  	<table class="order_table">
+	  	  	<table class="order_table" id="order_table">
 	  	  		<tr class="header">
 	  	  			<th class="number">Номер</th>
 	  	  			<th class="name_order">Меню</th>

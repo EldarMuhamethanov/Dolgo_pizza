@@ -3,16 +3,28 @@ window.onload = function() {
     for (let i = 1;i < buyButtons.length; i++) {
         let button = document.getElementById(`${i}`);
         button.addEventListener('click', () => buy(`${i}`));
+        button.addEventListener('click', updateOrders);
     }
 };
 async function buy(id) {
     let body = new FormData;
     body.append('id', id);
-    fetch('/get_orders',
+    await fetch('/get_orders',
         {
             method: 'POST',
             body
         })
         .then(response => response.json())
-        .then((data) =>  console.log(data))
-};
+        .then((data) =>  console.log(data));
+}
+
+async function updateOrders() {
+    let newHTML = '';
+    await fetch('/menu')
+        .then(response => response.text())
+        .then((data) =>  {
+            newHTML = data.slice(data.indexOf('<table'), data.indexOf('</table>') + 8);
+        });
+    let tableA = document.getElementById('order_table');
+    tableA.innerHTML = newHTML;
+}
