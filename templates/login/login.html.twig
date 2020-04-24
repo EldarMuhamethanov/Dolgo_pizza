@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-	<link rel="stylesheet" type="text/css" href="css/login_registration.css">
+  <link rel="stylesheet" type="text/css" href="css/login_registration.css">
 {% endblock %}
 {% block title %}Login{% endblock %}
 {% block body %}
-	<div class="container-fluid">
-		{% include 'header.html.twig' with {'page': 'login'} %}
-		<div class="form">
-			<h3 class="form_header login_header">Вход</h3>
-			<form action="" method="">
-				<input type="email" name="email" value="" class="text_input" placeholder="Почта" required /> <br />
-				<input type="password" name="password" value="" class="text_input" placeholder="Пароль" required /> <br />
-				<input type="submit" value="Войти" class="submit_button" />
-			</form>
-		</div>
-	</div>
+  <div class="container-fluid">
+    {% include 'header.html.twig' with {'page': 'login'} %}
+    <div class="form">
+      <h3 class="form_header login_header">Вход</h3>
+      <form action="" method="">
+        <input type="email" name="email" value="" class="text_input" placeholder="Почта" required/> <br/>
+        <input type="password" name="password" value="" class="text_input" placeholder="Пароль" required/> <br/>
+        <input type="submit" value="Войти" class="submit_button"/>
+      </form>
+    </div>
+  </div>
 {% endblock %}

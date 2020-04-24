@@ -1,11 +1,12 @@
-window.onload = function() {
+window.onload = function () {
     let buyButtons = document.querySelectorAll('.buying');
-    for (let i = 1;i < buyButtons.length; i++) {
+    for (let i = 1; i < buyButtons.length; i++) {
         let button = document.getElementById(`${i}`);
         button.addEventListener('click', () => buy(`${i}`));
         button.addEventListener('click', updateOrders);
     }
 };
+
 async function buy(id) {
     let body = new FormData;
     body.append('id', id);
@@ -15,16 +16,16 @@ async function buy(id) {
             body
         })
         .then(response => response.json())
-        .then((data) =>  console.log(data));
+        .then((data) => console.log(data));
 }
 
 async function updateOrders() {
     let newHTML = '';
     await fetch('/menu')
         .then(response => response.text())
-        .then((data) =>  {
+        .then((data) => {
             newHTML = data.slice(data.indexOf('<table'), data.indexOf('</table>') + 8);
         });
-    let tableA = document.getElementById('order_table');
-    tableA.innerHTML = newHTML;
+    let tableOrders = document.getElementById('order_table');
+    tableOrders.innerHTML = newHTML;
 }

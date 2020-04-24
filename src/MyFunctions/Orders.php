@@ -3,7 +3,7 @@ namespace Orders;
 
 class Orders
 {
-    const FILEINFO = 'orders.json';
+    const FILEINFO = 'data/orders.json';
     public static function getOrders()
     {
         $arrayOfInfo = file(self::FILEINFO);

@@ -1,23 +1,28 @@
 <?php
+
 namespace Users;
 
-class UsersUtils{
-    const FILEINFO = 'users.json';
-    public static function getUsers(){
+class UsersUtils
+{
+    const FILEINFO = 'data/users.json';
+
+    public static function getUsers()
+    {
         $arrayOfInfo = file(self::FILEINFO);
         $arrayOfUsers = [];
-        for($i= 0; $i< count($arrayOfInfo); $i++){
-            $arrayOfUsers[$i] = (array) json_decode($arrayOfInfo[$i]);
+        for ($i = 0; $i < count($arrayOfInfo); $i++) {
+            $arrayOfUsers[$i] = (array)json_decode($arrayOfInfo[$i]);
             $arrayOfUsers[$i]['number'] = $i + 1;
         }
         return $arrayOfUsers;
     }
 
-    public static function isExist($dataUser){
+    public static function isExist($dataUser)
+    {
         $arrayOfInfo = file(self::FILEINFO);
         $arrayOfUsers = [];
-        for($i= 0; $i< count($arrayOfInfo); $i++){
-            $arrayOfUsers[$i] = (array) json_decode($arrayOfInfo[$i]);
+        for ($i = 0; $i < count($arrayOfInfo); $i++) {
+            $arrayOfUsers[$i] = (array)json_decode($arrayOfInfo[$i]);
             if ($arrayOfUsers[$i]['email'] == $dataUser['email']) {
                 return true;
             }
@@ -25,14 +30,14 @@ class UsersUtils{
         return false;
     }
 
-    public static function checkPasswordStrength($userPass) {
+    public static function checkPasswordStrength($userPass)
+    {
         $strength = 0;
         $strength += 4 * strlen($userPass);
         $countUpCase = 0;
         $countDownCase = 0;
         $countDigit = 0;
-        for ($i = 0; $i < strlen($userPass); $i++)
-        {
+        for ($i = 0; $i < strlen($userPass); $i++) {
             if (ctype_upper($userPass[$i]))
                 $countUpCase++;
             if (ctype_lower($userPass[$i]))

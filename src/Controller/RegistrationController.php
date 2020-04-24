@@ -19,7 +19,7 @@ class RegistrationController extends AbstractController
     public function index(Request $request): Response
     {
         $user = new User();
-        $file_name = 'users.json';
+        $file_name = 'data/users.json';
         $fp = fopen($file_name, 'a');
 
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -45,8 +45,8 @@ class RegistrationController extends AbstractController
                 'address' => $user->getAddress(),
             ];
             if (!UsersUtils::isExist($register_form)) {
-                if (UsersUtils::checkPasswordStrength($register_form['password'])){
-                    fwrite($fp, json_encode($register_form,JSON_UNESCAPED_UNICODE) . "\n");
+                if (UsersUtils::checkPasswordStrength($register_form['password'])) {
+                    fwrite($fp, json_encode($register_form, JSON_UNESCAPED_UNICODE) . "\n");
 
                     $this->addFlash(
                         'success',

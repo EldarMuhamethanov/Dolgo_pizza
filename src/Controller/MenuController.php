@@ -13,8 +13,8 @@ class MenuController extends AbstractController
         $orders = Orders::getOrders();
         $menu = Menu::getMenu();
         return $this->render('menu/menu.html.twig', [
-        	'orders' => $orders,
-        	'menu' => $menu,
+            'orders' => $orders,
+            'menu' => $menu,
         ]);
     }
 }

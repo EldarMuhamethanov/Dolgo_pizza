@@ -1,56 +1,55 @@
 /*============================HEADER============================*/
-a:hover
-{
-	text-decoration: none;
-	color: #000;
+a:hover {
+    text-decoration: none;
+    color: #000;
 }
-a
-{
-	cursor: pointer;
-	text-decoration: none;
-	color: #000;
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
 }
-h1
-{
-	text-transform: uppercase;
-	font: normal bold 24px/28px Arial;
-	align-items: center;
-	margin-left: 74px;
-	color: #000;
+
+h1 {
+    text-transform: uppercase;
+    font: normal bold 24px/28px Arial;
+    align-items: center;
+    margin-left: 74px;
+    color: #000;
 }
-header
-{
-	margin-top: 34px;
+
+header {
+    margin-top: 34px;
 }
-button
-{
-	background: none;
+
+button {
+    background: none;
     border: 2px solid #F2960B;
     border-radius: 10px;
-	font: normal normal 18px/21px Roboto;
-	align-items: center;
-	text-align: center;
-	color: #333333;
+    font: normal normal 18px/21px Roboto;
+    align-items: center;
+    text-align: center;
+    color: #333333;
 }
-button:hover
-{
-	cursor: pointer;
-	transition: 0.4s;
-	background-color: #F2960B;
-	color: #fff;
+
+button:hover {
+    cursor: pointer;
+    transition: 0.4s;
+    background-color: #F2960B;
+    color: #fff;
 }
-.registration
-{
-	padding: 8px 31px;
-	margin: -18px 20px 0 0;
+
+.registration {
+    padding: 8px 31px;
+    margin: -18px 20px 0 0;
 }
-.login
-{
-	margin-top: -18px;
-	padding: 8px 24px;
+
+.login {
+    margin-top: -18px;
+    padding: 8px 24px;
 }
-.authorization
-{
-	margin-right: 4%;
-	margin-top: -10px;
+
+.authorization {
+    margin-right: 4%;
+    margin-top: -10px;
 }

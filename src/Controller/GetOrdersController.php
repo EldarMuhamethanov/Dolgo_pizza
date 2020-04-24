@@ -17,11 +17,11 @@ class GetOrdersController extends AbstractController
     {
         $menu = Menu::getMenu();
         {
-            $file_name = 'users.json';
+            $file_name = 'data/users.json';
             $menu = Menu::getMenu();
             $id = $_POST['id'];
             $menu = Orders::setOrders($menu[$id - 1]);
-            return new Response(json_encode(['success'=>1]));
+            return new Response(json_encode(['success' => 1]));
         }
     }
 }

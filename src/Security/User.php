@@ -14,13 +14,14 @@ class User implements UserInterface
 
     private $name;
 
-    public function __construct($name = '', $email='', $password='', $address='', $roles=[])
+    public function __construct($name = '', $email = '', $password = '', $address = '', $roles = [])
     {
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
         $this->address = $address;
     }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -64,7 +65,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -91,7 +92,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword($password): self
