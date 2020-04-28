@@ -6,7 +6,7 @@ class UsersUtils
 {
     const FILEINFO = 'data/users.json';
 
-    public static function getUsers()
+    public static function getUsers(): array
     {
         $arrayOfInfo = file(self::FILEINFO);
         $arrayOfUsers = [];
@@ -17,7 +17,7 @@ class UsersUtils
         return $arrayOfUsers;
     }
 
-    public static function isExist($dataUser)
+    public static function isExist($dataUser): bool
     {
         $arrayOfInfo = file(self::FILEINFO);
         $arrayOfUsers = [];
@@ -30,7 +30,7 @@ class UsersUtils
         return false;
     }
 
-    public static function checkPasswordStrength($userPass)
+    public static function checkPasswordStrength($userPass): bool
     {
         $strength = 0;
         $strength += 4 * strlen($userPass);

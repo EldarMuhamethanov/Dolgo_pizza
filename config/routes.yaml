@@ -3,7 +3,7 @@
 #    controller: App\Controller\Menu::index
 
 menu:
-    path: /menu
+    path: /
     controller: App\Controller\MenuController::index
 
 login:

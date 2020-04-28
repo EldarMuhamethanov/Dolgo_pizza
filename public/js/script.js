@@ -21,7 +21,7 @@ async function buy(id) {
 
 async function updateOrders() {
     let newHTML = '';
-    await fetch('/menu')
+    await fetch('/')
         .then(response => response.text())
         .then((data) => {
             newHTML = data.slice(data.indexOf('<table'), data.indexOf('</table>') + 8);

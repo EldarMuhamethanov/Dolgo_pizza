@@ -38,6 +38,9 @@ button:hover {
     background-color: #F2960B;
     color: #fff;
 }
+button:focus {
+    outline: none;
+}
 
 .registration {
     padding: 8px 31px;

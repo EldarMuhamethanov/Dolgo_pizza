@@ -53,11 +53,11 @@ class RegistrationController extends AbstractController
                         'Вы добавлены в систему'
                     );
 
-                    return $this->redirect("/menu", 308);
+                    return $this->redirect("/", 308);
                 } else {
                     $this->addFlash(
                         'warning',
-                        'Слишком просто пароль, попробуйте другой'
+                        'Слишком простой пароль, попробуйте другой'
                     );
                 }
             } else {

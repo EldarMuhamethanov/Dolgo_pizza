@@ -6,7 +6,7 @@ class Menu
 {
     const FILEINFO = 'data/menu.json';
 
-    public static function getMenu()
+    public static function getMenu(): array
     {
         $arrayOfInfo = file(self::FILEINFO);
         $arrayOfMenu = [];

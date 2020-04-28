@@ -4,7 +4,7 @@ namespace Orders;
 class Orders
 {
     const FILEINFO = 'data/orders.json';
-    public static function getOrders()
+    public static function getOrders(): array
     {
         $arrayOfInfo = file(self::FILEINFO);
         $arrayOfOrders = [];
@@ -14,7 +14,7 @@ class Orders
         }
         return $arrayOfOrders;
     }
-    public static function setOrders($pointOfMenu)
+    public static function setOrders($pointOfMenu): void
     {
         $fp = fopen(self::FILEINFO, 'a');
         $arrayOfOrder = [
@@ -24,6 +24,5 @@ class Orders
             "addres" => 'Адресс пользователя',
             "status" => 'ready',];
         fwrite($fp,"\n" . json_encode($arrayOfOrder,JSON_UNESCAPED_UNICODE));
-        return null;
     }
 }
