@@ -6,17 +6,6 @@ class UsersUtils
 {
     const FILEINFO = 'data/users.json';
 
-    public static function getUsers(): array
-    {
-        $arrayOfInfo = file(self::FILEINFO);
-        $arrayOfUsers = [];
-        for ($i = 0; $i < count($arrayOfInfo); $i++) {
-            $arrayOfUsers[$i] = (array)json_decode($arrayOfInfo[$i]);
-            $arrayOfUsers[$i]['number'] = $i + 1;
-        }
-        return $arrayOfUsers;
-    }
-
     public static function isExist($dataUser): bool
     {
         $arrayOfInfo = file(self::FILEINFO);

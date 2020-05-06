@@ -23,15 +23,15 @@
   	  			<div class="row">
   	  			{% for pizza in menu %}
 	  				<div class="col-lg-3 col-md-4 col-sm-6 pizza_menu">
-		  	  		<img src="img/{{ pizza['image'] }}.jpg" class="pizza_pic" />
+		  	  		<img src="img/{{ pizza.image }}.jpg" class="pizza_pic" />
 		  	  		<div class="about_pizza">
-			  	  		<h3 class="pizza_name">{{ pizza['title_pizza'] }}</h3>
+			  	  		<h3 class="pizza_name">{{ pizza.titlePizza }}</h3>
 			  	  		<p class="pizza_description">
-			  	  			{{ pizza['description'] }}
+			  	  			{{ pizza.description }}
 			  	  		</p>
 			  	  		<p>
-			  	  			<span class="cost">от {{ pizza['cost'] }}р</span>
-			  	  			<input type="submit" value="Купить" class="buying" id="{{ pizza['id'] }}">
+			  	  			<span class="cost">от {{ pizza.cost }}р</span>
+			  	  			<input type="submit" value="Купить" class="buying" id="{{ pizza.id }}">
 			  	  		</p>	
 		  	  		</div>
 		  	  	</div>
@@ -51,12 +51,12 @@
 	  	  		</tr>
 	  	  		{% for number in orders %}
   	  			<tr>
-	  	  			<td class="number">#{{ number['number']}}</td>
-	  	  			<td class="name_order">{{ number['pizza'] }}</td>
-	  	  			<td class="price">{{ number['cost'] }}</td>
-	  	  			<td class="client">{{ number['user'] }}</td>
-	  	  			<td class="address">{{ number['addres'] }}</td>
-	  	  			<td class="status">{{ number['status'] }}</td>
+	  	  			<td class="number">#{{ number.id }}</td>
+	  	  			<td class="name_order">{{ number.pizza }}</td>
+	  	  			<td class="price">{{ number.cost }}</td>
+	  	  			<td class="client">{{ number.user }}</td>
+	  	  			<td class="address">{{ number.address }}</td>
+	  	  			<td class="status">{{ number.status }}</td>
 	  	  		</tr>
 				{% endfor %}
 	  	  	</table>

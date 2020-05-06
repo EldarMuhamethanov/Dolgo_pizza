@@ -16,10 +16,10 @@
       </tr>
       {% for user in users %}
         <tr>
-          <td class="number">#{{ user['number'] }}</td>
-          <td class="name_of_user">{{ user['name'] }}</td>
-          <td class="mail">{{ user['email'] }}</td>
-          <td class="address">{{ user['address'] }}</td>
+          <td class="number">#{{ user.id }}</td>
+          <td class="name_of_user">{{ user.name }}</td>
+          <td class="mail">{{ user.email }}</td>
+          <td class="address">{{ user.address }}</td>
         </tr>
       {% endfor %}
     </table>

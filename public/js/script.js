@@ -3,20 +3,16 @@ window.onload = function () {
     for (let i = 1; i < buyButtons.length; i++) {
         let button = document.getElementById(`${i}`);
         button.addEventListener('click', () => buy(`${i}`));
-        button.addEventListener('click', updateOrders);
     }
 };
 
-async function buy(id) {
-    let body = new FormData;
-    body.append('id', id);
+async function buy() {
     await fetch('/get_orders',
         {
             method: 'POST',
-            body
         })
-        .then(response => response.json())
-        .then((data) => console.log(data));
+        .then(response => response.text())
+    updateOrders();
 }
 
 async function updateOrders() {

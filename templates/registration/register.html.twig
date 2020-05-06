@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
   <link rel="stylesheet" type="text/css" href="css/login_registration.css">
+  <script src="js/form_script.js" async></script>
 {% endblock %}
 {% block title %}Register{% endblock %}
 
@@ -16,6 +17,7 @@
       {{ form_row(registrationForm.address) }}
       <input type="submit" value="Зарегистрироваться" class="submit_button"/>
       {{ form_end(registrationForm) }}
+      <div class="response_block block_hidden" id="form_error_block">Введены некорректные данные</div>
     </div>
   </div>
 {% endblock %}

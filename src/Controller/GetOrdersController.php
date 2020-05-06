@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use Menu\Menu;
-use Orders\Orders;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use App\Entity\PizzaMenu;
+use App\Entity\Orders;
 
 class GetOrdersController extends AbstractController
 {
@@ -15,13 +15,18 @@ class GetOrdersController extends AbstractController
      */
     public function index()
     {
-        $menu = Menu::getMenu();
-        {
-            $file_name = 'data/users.json';
-            $menu = Menu::getMenu();
-            $id = $_POST['id'];
-            $menu = Orders::setOrders($menu[$id - 1]);
-            return new Response(json_encode(['success' => 1]));
-        }
+        $pizzaList = $this->getDoctrine()->getRepository(PizzaMenu::class);
+        $id = $_POST['id'];
+        $pizza = $pizzaList->find($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        $order = new Orders();
+        $order->setPizza($pizza->getTitlePizza());
+        $order->setCost($pizza->getCost());
+        $order->setUser('АНОНИМ');
+        $order->setAddress('АНОНИМ');
+        $order->setStatus('ready');
+        $entityManager->persist($order);
+        $entityManager->flush();
+        return new Response(json_encode(['success' => 1]));
     }
 }
