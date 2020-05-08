@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use App\Service\UserService;
 
 class RegistrationController extends AbstractController
 {
@@ -18,46 +19,37 @@ class RegistrationController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $user = new User();
-
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+            $name = $form->get('name')->getData();
+            $email = $form->get('email')->getData();
+            $password = $form->get('password')->getData();
+            $address = $form->get('address')->getData();
+            $entityManager = $this->getDoctrine()->getManager();
             $userList = $this->getDoctrine()->getRepository(User::class);
-            $currentUser = $userList->findOneBy(['email' => $form->get('email')->getData()]);
-            if (!$currentUser) {
-                $user->setPassword(
-                    $form->get('password')->getData()
-                );
-                $user->setEmail(
-                    $form->get('email')->getData()
-                );
-                $user->setAddress(
-                    $form->get('address')->getData()
-                );
-                $user->setName(
-                    $form->get('name')->getData()
-                );
-                $entityManager->persist($user);
-    
-                // actually executes the queries (i.e. the INSERT query)
-                $entityManager->flush();
+            $success = UserService::addUser($name, $email, $password, $address, $entityManager, $userList);
+            if ($success == null)
+            {
                 $this->addFlash(
                     'success',
                     'Вы добавлены в систему');
                 return $this->redirect("/", 308);
             }
-            else
+            else if ($success == 'User exist')
             {
                 $this->addFlash(
                     'warning',
                     'Пользователь существует');
                 return $this->redirect("/login", 308);
             }
-            
-            
+            else if ($success == 'weak password')
+            {
+                $this->addFlash(
+                    'warning',
+                    'Слишком слабый пароль');
+            }
         }
 
         return $this->render('registration/register.html.twig', [
