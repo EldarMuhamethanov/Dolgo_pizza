@@ -3,24 +3,29 @@
 namespace App\Service;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserService
 {
-    public function addUser(string $name, string $email, string $password, string $address, $entityManager, $userList): ?string
+    private $repository;
+
+    public function __construct($repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function addUser(string $name, string $email, string $password, string $address): ?string
     {
         $user = new User();  
-        $currentUser = $userList->findOneBy(['email' => $email]);
+        $currentUser = $this->repository->findByFieldValue('email', $email);
         if (!$currentUser) 
         {
-            if (self::checkPassword($password))
+            if ($this->checkPassword($password))
             {
-                $user->setPassword($password);
+                $user->setPassword(md5($password));
                 $user->setEmail($email);
                 $user->setAddress($address);
                 $user->setName($name);
-                UserRepository::add($user, $entityManager);
+                $this->repository->add($user);
                 return null;
             }
             else
@@ -33,6 +38,11 @@ class UserService
             return 'User exist';
         }
     } 
+
+    public function getAllUsers()
+    {
+        return $this->repository->getAll();
+    }
 
     public function checkPassword(string $userPass)
     {

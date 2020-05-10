@@ -14,6 +14,9 @@
       {{ form_row(registrationForm.name) }}
       {{ form_row(registrationForm.email) }}
       {{ form_row(registrationForm.password) }}
+      <div class="about_pass" value="EASY"></div>
+      {# <span class="about_pass mid_pass block_hidden">Пароль: Средний</span>
+      <span class="about_pass strong_pass block_hidden">Пароль: Сложный</span> #}
       {{ form_row(registrationForm.address) }}
       <input type="submit" value="Зарегистрироваться" class="submit_button"/>
       {{ form_end(registrationForm) }}

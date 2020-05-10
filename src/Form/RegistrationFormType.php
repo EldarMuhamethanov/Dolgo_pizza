@@ -21,17 +21,21 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('name', TextType::class, array('label' => false, 'attr' => array(
                 'class' => 'text_input',
-                'placeholder' => 'ФИО')))
+                'placeholder' => 'ФИО',
+                'onchange' => "validateName(this)")))
             ->add('email', EmailType::class, array('label' => false, 'attr' => array(
                 'class' => 'text_input',
                 'placeholder' => 'Почта',
-                'type' => 'email')))
+                'type' => 'email',
+                'onchange' => "validateEmail(this)")))
             ->add('password', PasswordType::class, array('label' => false, 'attr' => array(
-                'class' => 'text_input',
-                'placeholder' => 'Пароль')))
+                'class' => 'text_input input_password',
+                'placeholder' => 'Пароль',
+                'onchange' => "validatePassword(this)")))
             ->add('address', TextType::class, array('label' => false, 'attr' => array(
                 'class' => 'text_input',
-                'placeholder' => 'Адресс доставки')));
+                'placeholder' => 'Адресс доставки',
+                'onchange' => "validateAddress(this)")));
     }
 
     public function configureOptions(OptionsResolver $resolver)

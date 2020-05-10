@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\PizzaMenu;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @method PizzaMenu|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,9 +15,24 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PizzaMenuRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $entityManager;
+    private $entityRepository;
+    public function __construct(EntityManagerInterface $entityManager, ManagerRegistry $registry)
     {
         parent::__construct($registry, PizzaMenu::class);
+        $this->entityManager = $entityManager;
+    }
+
+    public function getAll()
+    {
+        $this->entityRepository = $this->entityManager->getRepository(PizzaMenu::class);
+        return $this->entityRepository->findAll();
+    }
+
+    public function findById(string $id)
+    {
+        $this->entityRepository = $this->entityManager->getRepository(PizzaMenu::class);
+        return $this->entityRepository->find($id);
     }
 
     // /**

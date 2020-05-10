@@ -8,8 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\User;
-use App\Service\UserService;
 
 class RegistrationController extends AbstractController
 {
@@ -17,6 +15,12 @@ class RegistrationController extends AbstractController
      * @param Request $request
      * @return Response
      */
+    private $service;
+
+    public function __construct($service)
+    {
+        $this->service = $service;
+    }
     public function index(Request $request): Response
     {
         $form = $this->createForm(RegistrationFormType::class);
@@ -27,9 +31,7 @@ class RegistrationController extends AbstractController
             $email = $form->get('email')->getData();
             $password = $form->get('password')->getData();
             $address = $form->get('address')->getData();
-            $entityManager = $this->getDoctrine()->getManager();
-            $userList = $this->getDoctrine()->getRepository(User::class);
-            $success = UserService::addUser($name, $email, $password, $address, $entityManager, $userList);
+            $success = $this->service->addUser($name, $email, $password, $address);
             if ($success == null)
             {
                 $this->addFlash(

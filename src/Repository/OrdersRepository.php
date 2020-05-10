@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Orders;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @method Orders|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,9 +15,29 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class OrdersRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $entityManager;
+    private $entityRepository;
+    public function __construct(EntityManagerInterface $entityManager, ManagerRegistry $registry)
     {
         parent::__construct($registry, Orders::class);
+        $this->entityManager = $entityManager;
+    }
+
+    public function getAll()
+    {
+        $this->entityRepository = $this->entityManager->getRepository(Orders::class);
+        return $this->entityRepository->findAll();
+    }
+
+    public function add(Orders $order)
+    {
+        $this->entityManager->persist($order);
+        $this->entityManager->flush();
+    }
+
+    public function updateField()
+    {
+        
     }
 
     // /**

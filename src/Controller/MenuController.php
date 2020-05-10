@@ -8,12 +8,19 @@ use App\Entity\Orders;
 
 class MenuController extends AbstractController
 {
+    private $orderService;
+    private $menuService;
+
+    public function __construct($orderService, $menuService)
+    {
+        $this->orderService = $orderService;    
+        $this->menuService = $menuService;
+    }
     public function index()
     {
-        $ordersList = $this->getDoctrine()->getRepository(Orders::class);
-        $orders = $ordersList->findAll();
-        $pizzaList = $this->getDoctrine()->getRepository(PizzaMenu::class);
-        $menu = $pizzaList->findAll();
+        $orders = $this->orderService->getAllOrders();
+        $menu = $this->menuService->getAllPointOfMenu();
+
         return $this->render('menu/menu.html.twig', [
             'orders' => $orders,
             'menu' => $menu,

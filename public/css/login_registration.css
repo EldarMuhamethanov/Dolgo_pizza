@@ -40,15 +40,18 @@
     color: #000000;
 }
 
-.registration_header {
+.registration_header 
+{
     margin: 46px 0 52px -63px;
 }
 
-.login_header {
+.login_header 
+{
     margin: 47px 0 103px -63px;
 }
 
-.submit_button {
+.submit_button 
+{
     width: 500px;
     height: 60px;
     margin-top: 29px;
@@ -61,15 +64,41 @@
     border-radius: 10px;
 }
 
-.response_block {
+.response_block 
+{
     font: normal normal 24px/28px Roboto;
     color: red;
 }
 
-.block_visible {
+.block_visible 
+{
     visibility: visible;
 }
 
-.block_hidden {
+.block_hidden 
+{
     visibility: hidden;
+}
+
+.input_password 
+{
+    margin-bottom: 0;
+}
+
+.about_pass
+{
+    height: 20px;
+}
+
+.easy_pass
+{
+    color: red;
+}
+.mid_pass
+{
+    color: rgb(129, 129, 11);
+}
+.strong_pass
+{
+    color: green;
 }

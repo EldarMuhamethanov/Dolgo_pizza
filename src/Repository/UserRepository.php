@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Expr\Value;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -13,16 +15,31 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UserRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $entityManager;
+    private $entityRepository;
+    public function __construct(EntityManagerInterface $entityManager, ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
+        $this->entityManager = $entityManager;
     }
 
-    public function add(User $user, $entityManager): void
+    public function add(User $user): void
     {
-        $entityManager->persist($user);
-        $entityManager->flush();
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
     } 
+
+    public function findByFieldValue(string $field, string $value)
+    {
+        $this->entityRepository = $this->entityManager->getRepository(User::class);
+        return $this->entityRepository->findOneBy([$field => $value]);
+    }
+    
+    public function getAll()
+    {
+        $this->entityRepository = $this->entityManager->getRepository(User::class);
+        return $this->entityRepository->findAll();
+    }
 
     // /**
     //  * @return User[] Returns an array of User objects
