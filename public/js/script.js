@@ -25,6 +25,6 @@ async function updateOrders() {
         .then((data) =>  {
             newHTML = data.slice(data.indexOf('<table'), data.indexOf('</table>') + 8);
         });
-    let tableA = document.getElementById('order_table');
-    tableA.innerHTML = newHTML;
+    let table = document.getElementById('order_table');
+    table.innerHTML = newHTML;
 } 

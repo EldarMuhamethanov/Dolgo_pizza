@@ -56,8 +56,6 @@ function validateName(isSuccess) {
 function validatePassword() {
     let password = document.getElementById('registration_form_password').value; // Получаем пароль из формы
     pass_message = document.querySelector('.about_pass');
-    // pass_message.classList.add('block_visible');
-    // pass_message.classList.remove('block_hidden');
     pass_message.classList.remove('easy_pass');
     pass_message.classList.remove('mid_pass');
     pass_message.classList.remove('strong_pass');
@@ -91,23 +89,16 @@ function validatePassword() {
     else if (password.length >= 6 && rating == 1) text = "Простой";
     else if (password.length >= 6 && rating > 1 && rating < 4) text = "Средний";
     else if (password.length >= 6 && rating == 4) text = "Сложный";
-    // alert(text); // Выводим итоговую сложность пароля
     if (text === 'Простой') {
         pass_message.classList.add('easy_pass');
-        // pass_message.classList.add('block_visible');
-        // pass_message.classList.remove('block_hidden');
         pass_message.textContent = 'Пароль: Простой';
     }   
     if (text === 'Средний') {
         pass_message.classList.add('mid_pass');
-        // pass_message.classList.add('block_visible');
-        // pass_message.classList.remove('block_hidden');
         pass_message.textContent = 'Пароль: Средний';
     }   
     if (text === 'Сложный') {
         pass_message.classList.add('strong_pass');
-        // pass_message.classList.add('block_visible');
-        // pass_message.classList.remove('block_hidden');
         pass_message.textContent = 'Пароль: Сложный';
     }   
 }
