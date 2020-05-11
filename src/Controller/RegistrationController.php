@@ -31,7 +31,12 @@ class RegistrationController extends AbstractController
             $email = $form->get('email')->getData();
             $password = $form->get('password')->getData();
             $address = $form->get('address')->getData();
-            $success = $this->service->addUser($name, $email, $password, $address);
+            $role = ['ROLE_USER'];
+            if ($email === 'admin@mail.ru' && $password === '1234Qwerty')
+            {
+                $role = ['ROLE_ADMIN', 'ROLE_USER'];
+            }
+            $success = $this->service->addUser($name, $email, $password, $address, $role);
             if ($success == null)
             {
                 $this->addFlash(

@@ -43,7 +43,7 @@ function validateName(isSuccess) {
     let name = document.getElementById('registration_form_name');
     let reg = /^[a-zа-я\s]+$/i;
     if (!reg.test(name.value)){
-        issuccess = false;
+        isSuccess = false;
         name.classList.add('text_input_incorrect');
     }
     else

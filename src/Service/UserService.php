@@ -3,17 +3,22 @@
 namespace App\Service;
 
 use App\Entity\User;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserService
 {
     private $repository;
 
-    public function __construct($repository)
+    private $encoder; 
+
+    public function __construct($repository, UserPasswordEncoderInterface $encoder)
     {
         $this->repository = $repository;
+        $this->encoder = $encoder;
     }
 
-    public function addUser(string $name, string $email, string $password, string $address): ?string
+    public function addUser(string $name, string $email, string $password, string $address, array $role = []): ?string
     {
         $user = new User();  
         $currentUser = $this->repository->findByFieldValue('email', $email);
@@ -21,10 +26,14 @@ class UserService
         {
             if ($this->checkPassword($password))
             {
-                $user->setPassword(md5($password));
+                $user->setPassword(
+                    $this->encoder->encodePassword($user, $password)
+                );
                 $user->setEmail($email);
                 $user->setAddress($address);
                 $user->setName($name);
+                $user->setUsername($email);
+                $user->setRoles($role);
                 $this->repository->add($user);
                 return null;
             }

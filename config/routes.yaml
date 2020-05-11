@@ -6,10 +6,6 @@ menu:
     path: /
     controller: App\Controller\MenuController::index
 
-login:
-    path: /login
-    controller: App\Controller\LoginController::index
-
 usersList:
     path: /users
     controller: App\Controller\ListOfUsersController::index

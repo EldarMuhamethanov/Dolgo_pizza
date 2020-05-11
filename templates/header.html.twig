@@ -10,7 +10,13 @@
         <a href="/registration"><button class="registration">Регистрация</button></a>
       {% endif %}
       {% if page == 'menu' or page == 'registration' %}
-        <a href="/login"><button class="login">Вход</button></a>
+        {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+            <a href="/login"><button class="login">Вход</button></a>
+        {% endif %} 
+        {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('logout') }}"><button class="login">Logout</button></a>
+        {% endif %}
+        
       {% endif %}
     </div>
   </div>

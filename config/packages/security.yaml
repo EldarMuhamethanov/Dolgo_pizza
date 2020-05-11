@@ -1,20 +1,28 @@
 security:
     encoders:
-        App\Security\User:
-            algorithm: auto
-
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+        App\Entity\User:
+            algorithm: bcrypt
     providers:
-        # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
-            id: App\Security\UserProvider
+        my_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: lazy
-            provider: app_user_provider
+            anonymous: true
+
+            form_login:
+                login_path: login
+                check_path: login
+                provider: my_provider
+            
+            logout:
+                path: /logout
+                target: /
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -26,4 +34,11 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/menu, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/registration, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/menu, roles: ROLE_USER }
+         - { path: ^/registration, roles: ROLE_USER }
+         - { path: ^/login, roles: ROLE_USER }
+         - { path: ^/users, roles: ROLE_ADMIN }
+         

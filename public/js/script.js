@@ -15,7 +15,11 @@ async function buy(id) {
             body
         })
         .then(response => response.json())
-        .then((data) =>  console.log(data));
+        .then((data) =>  isSuccess = data['isAuth']);
+    if (isSuccess === 0)
+    {
+        document.location.href = "/login";
+    }
 }
 
 async function updateOrders() {
