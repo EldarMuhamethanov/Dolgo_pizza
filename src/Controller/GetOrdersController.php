@@ -24,7 +24,7 @@ class GetOrdersController extends AbstractController
     /**
      * @Route("/get_orders", name="get_orders")
      */
-    public function index()
+    public function getOrder()
     {
         $id = $_POST['id'];
         $pizza = $this->menuService->findById($id);
@@ -69,5 +69,16 @@ class GetOrdersController extends AbstractController
             $new_table = $new_table . $this_order;
         }
         return new Response($new_table);
+    }
+
+    /**
+     * @Route("/update_status", name="update_status")
+     */
+    public function update_status() {
+        $id = $_POST['status_id'];
+        $value = $_POST['new_value'];
+        $order = $this->orderService->findById($id);
+        $this->orderService->updateField($order, 'status', $value);      
+        return new Response(json_encode(['new_value' => $value]));
     }
 }

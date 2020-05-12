@@ -27,4 +27,35 @@ class OrdersService
               ->setStatus($status);
         $this->repository->add($order);
     }
+
+    public function findById(string $id)
+    {
+        return $this->repository->findById($id);
+    }
+
+    public function updateField(Orders $order, string $nameOfField, string $value)
+    {
+        if ($nameOfField === 'pizza')
+        {
+            $order->setPizza($value);
+        }
+        if ($nameOfField === 'cost')
+        {
+            $order->setCost($value);
+        }
+        if ($nameOfField === 'user')
+        {
+            $order->setUser($value);
+        }
+        if ($nameOfField === 'address')
+        {
+            $order->setAddress($value);
+        }
+        if ($nameOfField === 'status')
+        {
+            $order->setStatus($value);
+        }
+        $this->repository->update();
+    }
+
 }

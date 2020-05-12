@@ -17,6 +17,7 @@ class OrdersRepository extends ServiceEntityRepository
 {
     private $entityManager;
     private $entityRepository;
+    
     public function __construct(EntityManagerInterface $entityManager, ManagerRegistry $registry)
     {
         parent::__construct($registry, Orders::class);
@@ -35,9 +36,15 @@ class OrdersRepository extends ServiceEntityRepository
         $this->entityManager->flush();
     }
 
-    public function updateField()
+    public function findById(string $id)
     {
-        
+        $this->entityRepository = $this->entityManager->getRepository(Orders::class);
+        return $this->entityRepository->find($id);
+    }
+
+    public function update()
+    {
+        $this->entityManager->flush();
     }
 
     // /**
