@@ -3,7 +3,6 @@ window.onload = function() {
     for (let i = 1;i <= buyButtons.length; i++) {
         let button = document.getElementById(`${i}`);
         button.addEventListener('click', () => buy(`${i}`));
-        button.addEventListener('click', updateOrders);
     }
 };
 async function buy(id) {
@@ -15,20 +14,24 @@ async function buy(id) {
             body
         })
         .then(response => response.json())
-        .then((data) =>  isSuccess = data['isAuth']);
-    if (isSuccess === 0)
+        .then((data) =>  redirect_url = data['redirect_url']);
+    console.log(redirect_url);
+    if (redirect_url)
     {
-        document.location.href = "/login";
+        document.location.href = redirect_url;
+    }
+    else
+    {
+        updateOrders();
     }
 }
 
 async function updateOrders() {
     let newHTML = '';
-    await fetch('/')
+    await fetch('/update_table')
         .then(response => response.text())
-        .then((data) =>  {
-            newHTML = data.slice(data.indexOf('<table'), data.indexOf('</table>') + 8);
-        });
+        .then((data) =>  new_tab = data);
+    console.log(new_tab);
     let table = document.getElementById('order_table');
-    table.innerHTML = newHTML;
+    table.innerHTML = new_tab;
 } 

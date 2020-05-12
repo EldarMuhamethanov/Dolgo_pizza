@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\PizzaMenu;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Entity\Orders;
 
 class MenuController extends AbstractController
 {

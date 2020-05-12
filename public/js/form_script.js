@@ -1,7 +1,15 @@
 window.onload = function() {
-    let form  = document.getElementsByTagName('form')[0];
+    let form  = document.getElementById('registration_form');
     let error_block = document.getElementById('form_error_block');
     let fields = form.querySelectorAll('.text_input');
+    let name_field = document.getElementById('registration_form_name');
+    let email_field = document.getElementById('registration_form_email');
+    let password_field = document.getElementById('registration_form_password');
+    let address_field = document.getElementById('registration_form_address');
+    name_field.onblur = validateName;
+    email_field.onblur = validateEmail;
+    password_field.onblur = validatePassword;
+    address_field.onblur = validateAddress;
     form.addEventListener('submit', function (event) {
         isSuccess = true;
         for (let i = 0; i < fields.length; i++) {
@@ -11,9 +19,10 @@ window.onload = function() {
                 fields[i].classList.add('text_input_incorrect');
             }
         }
-        isSuccess = validateEmail(isSuccess);
-        isSuccess = validateName(isSuccess);
-        isSuccess = validateAddress(isSuccess);
+        emailIsValid= validateEmail();
+        nameIsValid= validateName();
+        addressIsValid= validateAddress();
+        isSuccess = emailIsValid && nameIsValid && addressIsValid;
         if (isSuccess) {
             error_block.classList.add('block_hidden');
             error_block.classList.remove('block_visible');   
@@ -25,7 +34,7 @@ window.onload = function() {
     })
 }
 
-function validateEmail(isSuccess) {
+function validateEmail() {
     let email = document.getElementById('registration_form_email');
     let reg = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
     if (!reg.test(email.value)){
@@ -35,11 +44,11 @@ function validateEmail(isSuccess) {
     else
     {
         email.classList.remove('text_input_incorrect');
-    }
+    };
     return isSuccess;
 }
 
-function validateName(isSuccess) {
+function validateName() {
     let name = document.getElementById('registration_form_name');
     let reg = /^[a-zа-я\s]+$/i;
     if (!reg.test(name.value)){
@@ -103,7 +112,7 @@ function validatePassword() {
     }   
 }
 
-function validateAddress(isSuccess){
+function validateAddress(){
     let address = document.getElementById('registration_form_address');
     let reg = /^[а-я\s.]+?\d+/i;
     if (!reg.test(address.value)){

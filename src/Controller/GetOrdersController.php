@@ -31,12 +31,43 @@ class GetOrdersController extends AbstractController
         $user = $this->get('security.token_storage')->getToken()->getUser();
         if ($user === 'anon.')
         {
-            return new Response(json_encode(['isAuth'=>0]));
+            return new Response(json_encode(['redirect_url' => 'login']));
         }
         else
         {
             $this->orderService->addOrder($pizza->getTitlePizza(), $pizza->getCost(), $user->getName(), $user->getAddress(), 'Готовится');
-            return new Response(json_encode(['isAuth'=>1]));
+            return new Response(json_encode([]));
         }  
+    }
+
+    /**
+     * @Route("/update_table", name="update_table")
+     */
+    public function update()
+    {
+        $new_orders = $this->orderService->getAllOrders();
+        $new_table = '
+        <tr class="header">
+    		<th class="number">Номер</th>
+    		<th class="name_order">Меню</th>
+    		<th class="price">Цена</th>
+    		<th class="client">Клиент</th>
+    		<th class="adress">Адрес</th>
+    		<th class="status">Статус</th>
+    	</tr>';
+        foreach($new_orders as $key => $value)
+        {
+            $this_order = '
+            <tr> 
+                <td class="number">#'. $value->getId() .'</td>
+                <td class="name_order">'. $value->getPizza() .'</td>
+                <td class="price">'. $value->getCost() .'</td>
+                <td class="client">'.$value->getUser() .'</td>
+                <td class="address">'. $value->getAddress() .'</td>
+                <td class="status">'. $value->getStatus() .'</td>
+            </>';
+            $new_table = $new_table . $this_order;
+        }
+        return new Response($new_table);
     }
 }

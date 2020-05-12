@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Users\UsersUtils;
-use App\Entity\User;
 
 class ListOfUsersController extends AbstractController
 {

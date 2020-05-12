@@ -19,23 +19,19 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array('label' => false, 'attr' => array(
+            ->add('name', TextType::class, ['label' => false, 'attr' => [
                 'class' => 'text_input',
-                'placeholder' => 'ФИО',
-                'onchange' => "validateName(this)")))
-            ->add('email', EmailType::class, array('label' => false, 'attr' => array(
+                'placeholder' => 'ФИО',]])
+            ->add('email', EmailType::class, ['label' => false, 'attr' => [
                 'class' => 'text_input',
                 'placeholder' => 'Почта',
-                'type' => 'email',
-                'onchange' => "validateEmail(this)")))
-            ->add('password', PasswordType::class, array('label' => false, 'attr' => array(
+                'type' => 'email',]])
+            ->add('password', PasswordType::class, ['label' => false, 'attr' => [
                 'class' => 'text_input input_password',
-                'placeholder' => 'Пароль',
-                'onchange' => "validatePassword(this)")))
-            ->add('address', TextType::class, array('label' => false, 'attr' => array(
+                'placeholder' => 'Пароль',]])
+            ->add('address', TextType::class, ['label' => false, 'attr' => [
                 'class' => 'text_input',
-                'placeholder' => 'Адресс доставки',
-                'onchange' => "validateAddress(this)")));
+                'placeholder' => 'Адресс доставки',]]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
