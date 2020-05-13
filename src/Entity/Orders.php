@@ -30,6 +30,10 @@ class Orders
      * @ORM\Column(type="string", length=255)
      */
     private $user;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $userEmail;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -78,6 +82,17 @@ class Orders
     public function setUser(string $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+    public function getUserEmail(): ?string
+    {
+        return $this->userEmail;
+    }
+
+    public function setUserEmail(string $userEmail): self
+    {
+        $this->userEmail = $userEmail;
 
         return $this;
     }

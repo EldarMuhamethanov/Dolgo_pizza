@@ -123,3 +123,15 @@ th, td {
 .status {
     width: 275px;
 }
+
+.status_select {
+    border:none;
+}
+
+.status_select:focus {
+    outline: none;
+}
+
+.this_user_order {
+    background: #ffcc00;
+}

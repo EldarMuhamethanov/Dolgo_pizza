@@ -17,14 +17,15 @@ class OrdersService
         return $this->repository->getAll();
     }
 
-    public function addOrder(string $pizza, string $cost, string $user, string $address, string $status): void
+    public function addOrder(string $pizza, string $cost, string $user, string $address, string $status, string $userEmail): void
     {
         $order = new Orders();
         $order->setPizza($pizza)
               ->setCost($cost)
               ->setUser($user)
               ->setAddress($address)
-              ->setStatus($status);
+              ->setStatus($status)
+              ->setUserEmail($userEmail);
         $this->repository->add($order);
     }
 
@@ -54,6 +55,10 @@ class OrdersService
         if ($nameOfField === 'status')
         {
             $order->setStatus($value);
+        }
+        if ($nameOfField === 'userEmail')
+        {
+            $order->setUserEmail($value);
         }
         $this->repository->update();
     }

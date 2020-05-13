@@ -15,12 +15,14 @@ class GetOrdersController extends AbstractController
     private $security;
     private $orderService;
     private $menuService;
+
     public function __construct($menuService, $orderService, Security $security)
     {
         $this->menuService = $menuService;
         $this->orderService = $orderService;
         $this->security = $security;
     }
+
     /**
      * @Route("/get_orders", name="get_orders")
      */
@@ -29,15 +31,12 @@ class GetOrdersController extends AbstractController
         $id = $_POST['id'];
         $pizza = $this->menuService->findById($id);
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        if ($user === 'anon.')
-        {
+        if ($user === 'anon.') {
             return new Response(json_encode(['redirect_url' => 'login']));
-        }
-        else
-        {
-            $this->orderService->addOrder($pizza->getTitlePizza(), $pizza->getCost(), $user->getName(), $user->getAddress(), 'Готовится');
+        } else {
+            $this->orderService->addOrder($pizza->getTitlePizza(), $pizza->getCost(), $user->getName(), $user->getAddress(), 'Готовится', $user->getEmail());
             return new Response(json_encode([]));
-        }  
+        }
     }
 
     /**
@@ -55,16 +54,15 @@ class GetOrdersController extends AbstractController
     		<th class="adress">Адрес</th>
     		<th class="status">Статус</th>
     	</tr>';
-        foreach($new_orders as $key => $value)
-        {
+        foreach ($new_orders as $key => $value) {
             $this_order = '
-            <tr> 
-                <td class="number">#'. $value->getId() .'</td>
-                <td class="name_order">'. $value->getPizza() .'</td>
-                <td class="price">'. $value->getCost() .'</td>
-                <td class="client">'.$value->getUser() .'</td>
-                <td class="address">'. $value->getAddress() .'</td>
-                <td class="status">'. $value->getStatus() .'</td>
+            <tr class="order_row" id="order_' . $value->getId() . '"> 
+                <td class="number">#' . $value->getId() . '</td>
+                <td class="name_order">' . $value->getPizza() . '</td>
+                <td class="price">' . $value->getCost() . '</td>
+                <td class="client">' . $value->getUser() . '</td>
+                <td class="address">' . $value->getAddress() . '</td>
+                <td class="status">' . $value->getStatus() . '</td>
             </>';
             $new_table = $new_table . $this_order;
         }
@@ -74,11 +72,32 @@ class GetOrdersController extends AbstractController
     /**
      * @Route("/update_status", name="update_status")
      */
-    public function update_status() {
+    public function updateStatus()
+    {
         $id = $_POST['status_id'];
         $value = $_POST['new_value'];
         $order = $this->orderService->findById($id);
-        $this->orderService->updateField($order, 'status', $value);      
+        $this->orderService->updateField($order, 'status', $value);
         return new Response(json_encode(['new_value' => $value]));
+    }
+
+    /**
+     * @Route("/highlight_orders", name="highlight_orders")
+     */
+    public function highlightOrders()
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if ($user !== 'anon.') {
+            $userEmail = $user->getEmail();
+            $allOrders = $this->orderService->getAllOrders();
+            $id_orders = [];
+            foreach ($allOrders as $key => $value) {
+                if ($userEmail === $value->getUserEmail()) {
+                    array_push($id_orders, $value->getId());
+                }
+            }
+            return new Response(json_encode(['ids' => $id_orders, 'user' => 'user']));
+        }
+        return new Response(json_encode(['user' => 'anon']));
     }
 }
