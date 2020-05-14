@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,7 @@ class GetOrdersController extends AbstractController
     private $orderService;
     private $menuService;
 
-    public function __construct($menuService, $orderService, Security $security)
+    public function __construct($menuService, $orderService, $security)
     {
         $this->menuService = $menuService;
         $this->orderService = $orderService;
@@ -30,8 +31,8 @@ class GetOrdersController extends AbstractController
     {
         $id = $_POST['id'];
         $pizza = $this->menuService->findById($id);
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        if ($user === 'anon.') {
+        $user = $this->security->getUser();
+        if (!($this->security->IsGranted('IS_AUTHENTICATED_FULLY'))) {
             return new Response(json_encode(['redirect_url' => 'login']));
         } else {
             $this->orderService->addOrder($pizza->getTitlePizza(), $pizza->getCost(), $user->getName(), $user->getAddress(), 'Готовится', $user->getEmail());
@@ -86,8 +87,8 @@ class GetOrdersController extends AbstractController
      */
     public function highlightOrders()
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        if ($user !== 'anon.') {
+        $user = $this->security->getUser();
+        if ($this->security->IsGranted('IS_AUTHENTICATED_FULLY')) {
             $userEmail = $user->getEmail();
             $allOrders = $this->orderService->getAllOrders();
             $id_orders = [];

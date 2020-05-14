@@ -67,3 +67,8 @@ services:
         arguments: 
             $orderService: '@App\Service\OrdersService'
             $menuService: '@App\Service\MenuService'
+            $security: '@Symfony\Component\Security\Core\Security'
+            
+    App\Controller\LoginController:
+        arguments: 
+            $service: '@App\Service\UserService'
