@@ -4,6 +4,8 @@ namespace App\Service;
 
 use App\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Exception\UserExistException;
+use App\Exception\EasyPasswordException;
 
 class UserService
 {
@@ -17,10 +19,10 @@ class UserService
         $this->encoder = $encoder;
     }
 
-    public function addUser(string $name, string $email, string $password, string $address, array $role = []): ?string
+    public function addUser(string $name, string $email, string $password, string $address, array $role = [])
     {
         $user = new User();  
-        $currentUser = $this->repository->findByFieldValue('email', $email);
+        $currentUser = $this->findUserByField($email);
         if (!$currentUser) 
         {
             if ($this->checkPassword($password))
@@ -34,22 +36,26 @@ class UserService
                 $user->setUsername($email);
                 $user->setRoles($role);
                 $this->repository->add($user);
-                return null;
             }
             else
             {
-                return 'weak password';
+                throw new EasyPasswordException();
             }
         }
         else
         {
-            return 'User exist';
+            throw new UserExistException();
         }
     } 
 
     public function getAllUsers()
     {
         return $this->repository->getAll();
+    }
+
+    public function findUserByField(string $field)
+    {
+        return $this->repository->findByFieldValue('email', $field);
     }
 
     public function checkPassword(string $userPass)

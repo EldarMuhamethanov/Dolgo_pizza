@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 
 class MenuController extends AbstractController
 {
@@ -14,6 +15,9 @@ class MenuController extends AbstractController
         $this->orderService = $orderService;    
         $this->menuService = $menuService;
     }
+    /**
+     * @Route("/", name="menu")
+     */
     public function index()
     {
         $orders = $this->orderService->getAllOrders();

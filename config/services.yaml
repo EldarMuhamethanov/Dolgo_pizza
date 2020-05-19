@@ -72,3 +72,7 @@ services:
     App\Controller\LoginController:
         arguments: 
             $service: '@App\Service\UserService'
+
+    App\Controller\CheckExistController:
+        arguments: 
+            $service: '@App\Service\UserService'

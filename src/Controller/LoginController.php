@@ -10,7 +10,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
     private $service;
-
     public function __construct($service)
     {
         $this->service = $service;
@@ -20,12 +19,12 @@ class LoginController extends AbstractController
      */
     public function login(Request $request, AuthenticationUtils $utils)
     {
-        $error = $utils->getLastAuthenticationError();
         $lastEmail  = $utils->getLastUsername();
-        
+
         return $this->render('login/login.html.twig', [
-            'error' => $error,
             'last_username' => $lastEmail,
+            'thisUserEmail' => $_GET['thisUserEmail'] ?? '',
+            'thisUserPassword' => $_GET['thisUserPassword'] ?? ''
         ]);
     }
 

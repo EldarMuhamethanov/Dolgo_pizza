@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 //use App\Security\UserSecurity;
+use App\Exception\EasyPasswordException;
 use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Exception\UserExistException;
+use Symfony\Component\Routing\Annotation\Route;
+
 
 class RegistrationController extends AbstractController
 {
@@ -20,6 +24,9 @@ class RegistrationController extends AbstractController
     {
         $this->service = $service;
     }
+    /**
+     * @Route("/registration", name="registration")
+     */
     public function index(Request $request): Response
     {
         $form = $this->createForm(RegistrationFormType::class);
@@ -35,22 +42,25 @@ class RegistrationController extends AbstractController
             {
                 $role = ['ROLE_ADMIN', 'ROLE_USER'];
             }
-            $success = $this->service->addUser($name, $email, $password, $address, $role);
-            if ($success == null)
+            try
             {
+                $this->service->addUser($name, $email, $password, $address, $role);
                 $this->addFlash(
                     'success',
                     'Вы добавлены в систему');
-                return $this->redirect("/", 308);
+                return $this->redirectToRoute("menu");
             }
-            else if ($success == 'User exist')
+            catch (UserExistException $e)
             {
                 $this->addFlash(
                     'warning',
                     'Пользователь существует');
-                return $this->redirect("/login", 308);
+                return $this->redirectToRoute("login", [
+                    'thisUserEmail' => $email,
+                    'thisUserPassword' => $password
+                ]);
             }
-            else if ($success == 'weak password')
+            catch (EasyPasswordException $e)
             {
                 $this->addFlash(
                     'warning',

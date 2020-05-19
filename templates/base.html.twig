@@ -14,12 +14,12 @@
 </head>
 <body>
 {% for message in app.flashes('success') %}
-  <div class="alert alert-success">
+  <div class="alert alert-success flash">
     {{ message }}
   </div>
 {% endfor %}
 {% for message in app.flashes('warning') %}
-  <div class="alert alert-warning">
+  <div class="alert alert-warning flash">
     {{ message }}
   </div>
 {% endfor %}
