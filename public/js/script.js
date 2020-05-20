@@ -9,15 +9,16 @@ window.onload = function () {
         let idStatus = selectStatus[i].id;
         let select = document.getElementById(idStatus);
         let id = idStatus.slice(13, idStatus.length);
-        select.onblur = () => updateStatus(id, idStatus);
+        select.onblur = () => updateStatus(id);
     }
     highlightOrders();
 };
 
-async function updateStatus(id, idStatus) {
-    let n = document.getElementById(idStatus).options.selectedIndex;
-    let value = document.getElementById(idStatus).options[n].text;
+async function updateStatus(id) {
+    let n = document.getElementById('status_select' + id).options.selectedIndex;
+    let value = document.getElementById('status_select' + id).options[n].text;
     let body = new FormData;
+    console.log(id);
     body.append('status_id', id);
     body.append('new_value', value);
     await fetch('/update_status',
