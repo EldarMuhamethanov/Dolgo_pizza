@@ -23,9 +23,6 @@ security:
             logout:
                 path: /logout
                 target: /
-            guard:
-                authenticators:
-                    - App\Security\AuthFormAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

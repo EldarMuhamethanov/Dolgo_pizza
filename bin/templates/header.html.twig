@@ -1,0 +1,23 @@
+<header>
+  <div class="row justify-content-between">
+    <h1>
+      <a href="/">
+      🍕Долго пицца
+      </a>
+    </h1>
+    <div class="authorization">
+      {% if page == 'menu' or page == 'login' %}
+        <a href="/registration"><button class="registration">Регистрация</button></a>
+      {% endif %}
+      {% if page == 'menu' or page == 'registration' %}
+        {% if  not is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="/login"><button class="login">Вход</button></a>
+        {% endif %} 
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="{{ path('logout') }}"><button class="login">Выход</button></a>
+        {% endif %}
+        
+      {% endif %}
+    </div>
+  </div>
+</header>

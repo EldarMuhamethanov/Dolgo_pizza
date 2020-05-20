@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+  <link rel="stylesheet" type="text/css" href="css/login_registration.css">
+  <script src="js/form_script.js" async></script>
+{% endblock %}
+{% block title %}Register{% endblock %}
+
+{% block body %}
+  <div class="container-fluid">
+    {% include 'header.html.twig' with {'page': 'registration'} %}
+    <div class="form">
+      <h3 class="form_header registration_header">Регистрация</h3>
+      {{ form_start(registrationForm, {'attr': {'id': 'registration_form'}}) }}
+      {{ form_row(registrationForm.name) }}
+      {{ form_row(registrationForm.email) }}
+      {{ form_row(registrationForm.password) }}
+      <div class="about_pass" value="EASY"></div>
+      {{ form_row(registrationForm.address) }}
+      <input type="submit" value="Зарегистрироваться" class="submit_button"/>
+      {{ form_end(registrationForm) }}
+      <div class="response_block block_hidden" id="form_error_block">Введены некорректные данные</div>
+    </div>
+  </div>
+{% endblock %}

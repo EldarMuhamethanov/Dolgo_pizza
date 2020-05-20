@@ -1,0 +1,104 @@
+/*===========================Регистрация==========================*/
+
+.form {
+    width: 636px;
+    height: 636px;
+    margin: 76px auto;
+    padding: 0 0 0 63px;
+    border-radius: 20px;
+    border: 1px solid #A7A7A7;
+}
+
+.text_input {
+    width: 500px;
+    height: 60px;
+    padding: 0 28px 0 28px;
+    margin-bottom: 20px;
+    font: normal normal 24px/28px Roboto;
+    color: #333333;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid #A7A7A7;
+    border-radius: 10px;
+}
+
+.text_input_incorrect {
+    border: 1px solid red;
+    outline: none;
+}
+
+.text_input:focus,
+.submit_button:focus {
+    padding: 0 27px;
+    border: 2px solid #F2960B;
+    outline: none;
+}
+
+.form_header {
+    text-align: center;
+    font: normal normal 40px/47px Roboto;
+    color: #000000;
+}
+
+.registration_header 
+{
+    margin: 46px 0 52px -63px;
+}
+
+.login_header 
+{
+    margin: 47px 0 103px -63px;
+}
+
+.submit_button 
+{
+    width: 500px;
+    height: 60px;
+    margin-top: 29px;
+    font: normal normal 24px/28px Roboto;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    background: #F2960B;
+    border: 1px solid #A7A7A7;
+    border-radius: 10px;
+}
+
+.response_block 
+{
+    font: normal normal 24px/28px Roboto;
+    color: red;
+}
+
+.block_visible 
+{
+    visibility: visible;
+}
+
+.block_hidden 
+{
+    visibility: hidden;
+}
+
+.input_password 
+{
+    margin-bottom: 0;
+}
+
+.about_pass
+{
+    height: 20px;
+}
+
+.easy_pass
+{
+    color: red;
+}
+.mid_pass
+{
+    color: rgb(129, 129, 11);
+}
+.strong_pass
+{
+    color: green;
+}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registration{% endblock %}
+{% block body %}
+  <div class="container-fluid">
+    {% include 'header.html.twig' with {'page': 'registration'} %}
+    <div class="form">
+      <h3 class="form_header registration_header">Регистрация</h3>
+      <form action="" method="">
+        <input type="text" name="name" value="" class="text_input" placeholder="ФИО" required/> <br/>
+        <input type="email" name="email" value="" class="text_input" placeholder="Почта" required/> <br/>
+        <input type="password" name="password" value="" class="text_input" placeholder="Пароль" required/> <br/>
+        <input type="text" name="address" value="" class="text_input" placeholder="ФИО" required/> <br/>
+        <input type="submit" value="Зарегистрироваться" class="submit_button"/>
+      </form>
+    </div>
+  </div>
+{% endblock %}
