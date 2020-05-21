@@ -102,3 +102,10 @@
 {
     color: green;
 }
+
+.system_error
+{
+    width: 500px;
+    margin-top: 25px;
+    text-align: center;
+}

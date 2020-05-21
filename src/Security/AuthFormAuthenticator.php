@@ -71,7 +71,7 @@ class AuthFormAuthenticator extends AbstractFormLoginAuthenticator implements Pa
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Username could not be found.');
+            throw new CustomUserMessageAuthenticationException('Пользователь не найден');
         }
 
         return $user;

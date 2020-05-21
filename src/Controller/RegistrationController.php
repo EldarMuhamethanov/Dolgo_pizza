@@ -38,10 +38,6 @@ class RegistrationController extends AbstractController
             $password = $form->get('password')->getData();
             $address = $form->get('address')->getData();
             $role = ['ROLE_USER'];
-            if ($email === 'admin@mail.ru' && $password === '1234Qwerty')
-            {
-                $role = ['ROLE_ADMIN', 'ROLE_USER'];
-            }
             try
             {
                 $this->service->addUser($name, $email, $password, $address, $role);

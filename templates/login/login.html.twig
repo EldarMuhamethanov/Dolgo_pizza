@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
   <link rel="stylesheet" type="text/css" href="css/login_registration.css">
-  <script src="js/login_script.js" async></script>
 {% endblock %}
 {% block title %}Login{% endblock %}
 {% block body %}
@@ -10,14 +9,14 @@
     <div class="form">
       <h3 class="form_header login_header">Вход</h3>
       <form action="{{ path('login') }}" method="POST">
-        {% if error %}
-          <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
         <input type="email" name="username" value="{{ thisUserEmail }}" class="text_input" placeholder="Почта" required/> <br/>
         <input type="password" name="password" value="{{ thisUserPassword }}" class="text_input" placeholder="Пароль" required/> <br/>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <input type="submit" value="Войти" class="submit_button"/>
+        <input type="submit" value="Войти" class="submit_button"/>       
       </form>
+      {% if error %}
+          <div class="alert alert-danger system_error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+      {% endif %}
     </div>
   </div>
 {% endblock %}
