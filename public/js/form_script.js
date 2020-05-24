@@ -43,6 +43,7 @@ function validateEmail() {
     }
     else
     {
+        isSuccess = true;
         email.classList.remove('text_input_incorrect');
     };
     return isSuccess;
@@ -57,6 +58,7 @@ function validateName() {
     }
     else
     {
+        isSuccess = true;
         name.classList.remove('text_input_incorrect');
     }
     return isSuccess;
@@ -121,6 +123,7 @@ function validateAddress(){
     }
     else
     {
+        isSuccess = true;
         address.classList.remove('text_input_incorrect');
     }
     return isSuccess;

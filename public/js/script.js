@@ -1,5 +1,6 @@
 window.onload = function () {
     let buyButtons = document.querySelectorAll('.buying');
+    highlightOrders();
     for (let i = 1; i <= buyButtons.length; i++) {
         let button = document.getElementById(`${i}`);
         button.addEventListener('click', () => buy(`${i}`));
@@ -10,8 +11,7 @@ window.onload = function () {
         let select = document.getElementById(idStatus);
         let id = idStatus.slice(13, idStatus.length);
         select.onblur = () => updateStatus(id);
-    }
-    highlightOrders();
+    }  
 };
 
 async function updateStatus(id) {
@@ -40,7 +40,6 @@ async function buy(id) {
         })
         .then(response => response.json())
         .then((data) => redirect_url = data['redirect_url']);
-    console.log(redirect_url);
     if (redirect_url) {
         document.location.href = redirect_url;
     } else {
@@ -56,7 +55,6 @@ async function updateOrders() {
     console.log(new_tab);
     let table = document.getElementById('order_table');
     table.innerHTML = new_tab;
-
 }
 
 async function highlightOrders() {
