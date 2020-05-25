@@ -17,6 +17,7 @@
                 </li>
             </ul>
         </div>
+    </div>
         <div class="tab-content">
             <div class="tab-pane active" id="Menu">
                 <div class="container menu-container">
@@ -40,13 +41,14 @@
                 </div>
             </div>
             <div class="tab-pane orders_page" id="Orders">
+                <div class="order-container">
                 <table class="order_table" id="order_table">
                     <tr class="header">
                         <th class="number">Номер</th>
                         <th class="name_order">Меню</th>
                         <th class="price">Цена</th>
                         <th class="client">Клиент</th>
-                        <th class="adress">Адрес</th>
+                        <th class="address">Адрес</th>
                         <th class="status">Статус</th>
                     </tr>
                     {% for number in orders %}
@@ -73,7 +75,7 @@
                         </tr>
                     {% endfor %}
                 </table>
+                </div>
             </div>
         </div>
-    </div>
 {% endblock %}

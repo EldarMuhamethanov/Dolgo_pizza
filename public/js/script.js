@@ -43,7 +43,7 @@ async function buy(id) {
     if (redirect_url) {
         document.location.href = redirect_url;
     } else {
-        updateOrders();
+        await updateOrders();
         highlightOrders();
     }
 }

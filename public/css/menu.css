@@ -24,13 +24,13 @@
 /*============================Меню==============================*/
 
 .pizza_menu {
-    padding: 0 37px 0 10px;
+    padding: -1px 13px 0 10px;
 }
 
 .menu-container {
     padding: 0;
-    margin: 30px 0 0 64px;
-    max-width: 1280px;
+    margin: 30px 0 0 40px;
+    max-width: 95%;
 }
 
 .pizza_pic {
@@ -84,9 +84,9 @@
 
 .order_table {
     position: relative;
-    left: -74px;
+    /* left: -74px; */
     font: 22px/26px Roboto;
-    width: 110%;
+    width: 100%;
 }
 
 .header {
@@ -100,28 +100,28 @@ th, td {
 }
 
 .number {
-    width: 132px;
-    padding-left: 133px;
+    width: 10%;
+    padding-left: 5%;
 }
 
 .name_order {
-    width: 192px;
+    width: 20%;
 }
 
 .price {
-    width: 97px;
+    width: 5%;
 }
 
 .client {
-    width: 226px;
+    width: 25%;
 }
 
 .address {
-    width: 203px;
+    width: 20%;
 }
 
 .status {
-    width: 275px;
+    width: 15%;
 }
 
 .status_select {
