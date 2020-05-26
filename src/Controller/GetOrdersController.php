@@ -39,37 +39,6 @@ class GetOrdersController extends AbstractController
             return new Response(json_encode([]));
         }
     }
-
-    /**
-     * @Route("/update_table", name="update_table")
-     */
-    public function update()
-    {
-        $new_orders = $this->orderService->getAllOrders();
-        $new_table = '
-        <tr class="header">
-    		<th class="number">Номер</th>
-    		<th class="name_order">Меню</th>
-    		<th class="price">Цена</th>
-    		<th class="client">Клиент</th>
-    		<th class="adress">Адрес</th>
-    		<th class="status">Статус</th>
-    	</tr>';
-        foreach ($new_orders as $key => $value) {
-            $this_order = '
-            <tr class="order_row" id="order_' . $value->getId() . '"> 
-                <td class="number">#' . $value->getId() . '</td>
-                <td class="name_order">' . $value->getPizza() . '</td>
-                <td class="price">' . $value->getCost() . '</td>
-                <td class="client">' . $value->getUser() . '</td>
-                <td class="address">' . $value->getAddress() . '</td>
-                <td class="status">' . $value->getStatus() . '</td>
-            </>';
-            $new_table = $new_table . $this_order;
-        }
-        return new Response($new_table);
-    }
-
     /**
      * @Route("/update_status", name="update_status")
      */
@@ -82,23 +51,4 @@ class GetOrdersController extends AbstractController
         return new Response(json_encode(['new_value' => $value]));
     }
 
-    /**
-     * @Route("/highlight_orders", name="highlight_orders")
-     */
-    public function highlightOrders()
-    {
-        $user = $this->security->getUser();
-        if ($this->security->IsGranted('IS_AUTHENTICATED_FULLY')) {
-            $userEmail = $user->getEmail();
-            $allOrders = $this->orderService->getAllOrders();
-            $id_orders = [];
-            foreach ($allOrders as $key => $value) {
-                if ($userEmail === $value->getUserEmail()) {
-                    array_push($id_orders, $value->getId());
-                }
-            }
-            return new Response(json_encode(['ids' => $id_orders, 'user' => 'user']));
-        }
-        return new Response(json_encode(['user' => 'anon']));
-    }
 }

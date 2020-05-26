@@ -68,3 +68,10 @@ services:
             $orderService: '@App\Service\OrdersService'
             $menuService: '@App\Service\MenuService'
             $security: '@Symfony\Component\Security\Core\Security'
+
+
+    App\Controller\OrderTableController:
+        arguments: 
+            $orderService: '@App\Service\OrdersService'
+            $menuService: '@App\Service\MenuService'
+            $security: '@Symfony\Component\Security\Core\Security'        

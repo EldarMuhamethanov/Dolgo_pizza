@@ -1,6 +1,7 @@
 window.onload = function () {
     let buyButtons = document.querySelectorAll('.buying');
-    highlightOrders();
+    //highlightOrders();
+    updateOrders();
     for (let i = 1; i <= buyButtons.length; i++) {
         let button = document.getElementById(`${i}`);
         button.addEventListener('click', () => buy(`${i}`));
@@ -44,12 +45,12 @@ async function buy(id) {
         document.location.href = redirect_url;
     } else {
         await updateOrders();
-        highlightOrders();
+        //highlightOrders();
     }
 }
 
 async function updateOrders() {
-    await fetch('/update_table')
+    await fetch('/order/table')
         .then(response => response.text())
         .then((data) => new_tab = data);
     console.log(new_tab);
@@ -57,7 +58,7 @@ async function updateOrders() {
     table.innerHTML = new_tab;
 }
 
-async function highlightOrders() {
+/*async function highlightOrders() {
     let data_res;
     await fetch('/highlight_orders')
         .then(response => response.json())
@@ -74,4 +75,4 @@ async function highlightOrders() {
             }
         }
     }
-}
+}*/

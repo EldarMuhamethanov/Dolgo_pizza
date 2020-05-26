@@ -41,40 +41,9 @@
                 </div>
             </div>
             <div class="tab-pane orders_page" id="Orders">
+              
                 <div class="order-container">
-                <table class="order_table" id="order_table">
-                    <tr class="header">
-                        <th class="number">Номер</th>
-                        <th class="name_order">Меню</th>
-                        <th class="price">Цена</th>
-                        <th class="client">Клиент</th>
-                        <th class="address">Адрес</th>
-                        <th class="status">Статус</th>
-                    </tr>
-                    {% for number in orders %}
-                        <tr class="order_row" id="order_{{ number.id }}">
-                            <td class="number">#{{ number.id }}</td>
-                            <td class="name_order">{{ number.pizza }}</td>
-                            <td class="price">{{ number.cost }}</td>
-                            <td class="client">{{ number.user }}</td>
-                            <td class="address">{{ number.address }}</td>
-                            <td class="status">
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <select id="status_select{{ number.id }}" class="status_select">
-                                        <option {% if number.status == 'Готово' %} selected {% endif %}>Готово</option>
-                                        <option {% if number.status == 'Готовится' %} selected {% endif %}>Готовится
-                                        </option>
-                                        <option {% if number.status == 'В пути' %} selected {% endif %}>В пути</option>
-                                        <option {% if number.status == 'Доставлено' %} selected {% endif %}>Доставлено
-                                        </option>
-                                    </select>
-                                {% endif %}
-                                {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') and not is_granted('ROLE_ADMIN') %}
-                                    {{ number.status }}
-                                {% endif %}
-                        </tr>
-                    {% endfor %}
-                </table>
+                {% include 'order_table/index.html.twig'%}
                 </div>
             </div>
         </div>
