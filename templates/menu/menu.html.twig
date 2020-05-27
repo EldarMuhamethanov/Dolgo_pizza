@@ -26,13 +26,32 @@
                             <div class="col-lg-3 col-md-4 col-sm-6 pizza_menu">
                                 <img src="img/{{ pizza.image }}.jpg" class="pizza_pic"/>
                                 <div class="about_pizza">
-                                    <h3 class="pizza_name">{{ pizza.titlePizza }}</h3>
-                                    <p class="pizza_description">
-                                        {{ pizza.description }}
-                                    </p>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <textarea class="pizza_name" id="pizza_name_{{ pizza.id }}">{{ pizza.titlePizza }}</textarea>
+                                    {% else %}
+                                        <h3 class="pizza_name">
+                                            {{ pizza.titlePizza }}
+                                        </h3>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <textarea class="pizza_description" id="pizza_description_{{ pizza.id }}">{{ pizza.description }}</textarea>
+                                    {% else %}
+                                        <p class="pizza_description">
+                                            {{ pizza.description }}
+                                        </p>
+                                    {% endif %}     
                                     <p>
-                                        <span class="cost">от {{ pizza.cost }}р</span>
-                                        <input type="submit" value="Купить" class="buying" id="{{ pizza.id }}">
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <textarea class="cost" id="pizza_cost_{{ pizza.id }}">от {{ pizza.cost }}р</textarea>
+                                        {% else %}
+                                            <span class="cost">от {{ pizza.cost }}р</span>
+                                        {% endif %}
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <input type="submit" value="Обновить" class="buying" id="change_{{ pizza.id }}">
+                                        {% else %}
+                                            <input type="submit" value="Купить" class="buying" id="{{ pizza.id }}">
+                                        {% endif %}
+                                        
                                     </p>
                                 </div>
                             </div>
@@ -41,7 +60,6 @@
                 </div>
             </div>
             <div class="tab-pane orders_page" id="Orders">
-              
                 <div class="order-container">
                 {% include 'order_table/index.html.twig'%}
                 </div>

@@ -34,7 +34,10 @@ class PizzaMenuRepository extends ServiceEntityRepository
         $this->entityRepository = $this->entityManager->getRepository(PizzaMenu::class);
         return $this->entityRepository->find($id);
     }
-
+    public function update()
+    {
+        $this->entityManager->flush();
+    }
     // /**
     //  * @return PizzaMenu[] Returns an array of PizzaMenu objects
     //  */

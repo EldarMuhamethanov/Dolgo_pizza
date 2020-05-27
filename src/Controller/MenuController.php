@@ -28,4 +28,22 @@ class MenuController extends AbstractController
             'menu' => $menu,
         ]);
     }
+
+    /**
+     * @Route("/update/menu", name="update_menu")
+     */
+    public function updateMenu()
+    {
+        $idField = $_POST['id'];
+        $newTitle = $_POST['new_title'];
+        $newDescription = $_POST['new_description'];
+        $newCost = $_POST['new_cost'];
+        $pizza = $this->menuService->findById($idField);
+        $this->menuService->updateField($pizza, 'title', $newTitle);
+        $this->menuService->updateField($pizza, 'description', $newDescription);
+        if ((int)$newCost <= 2000)
+        {
+            $this->menuService->updateField($pizza, 'cost', $newCost);
+        }
+    }
 }

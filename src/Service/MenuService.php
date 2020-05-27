@@ -22,4 +22,21 @@ class MenuService
     {
         return $this->repository->findById($id);
     }
+
+    public function updateField(PizzaMenu $pizza, string $nameOfField, string $value)
+    {
+        if ($nameOfField === 'title')
+        {
+            $pizza->setTitlePizza($value);
+        }
+        if ($nameOfField === 'description')
+        {
+            $pizza->setDescription($value);
+        }
+        if ($nameOfField === 'cost')
+        {
+            $pizza->setCost($value);
+        }
+        $this->repository->update();
+    }
 }

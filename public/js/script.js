@@ -1,17 +1,18 @@
-window.onload = function () {
+window.onload = async function () {
     let buyButtons = document.querySelectorAll('.buying');
-    //highlightOrders();
-    updateOrders();
+    await updateOrders();
     for (let i = 1; i <= buyButtons.length; i++) {
         let button = document.getElementById(`${i}`);
-        button.addEventListener('click', () => buy(`${i}`));
+        let buttonChange = document.getElementById(`change_${i}`);
+        button !== null ? button.addEventListener('click', () => buy(`${i}`)) : null;
+        buttonChange !== null ? buttonChange.addEventListener('click', () => updatePizza(`${i}`)) : null;
     }
     let selectStatus = document.querySelectorAll('.status_select');
     for (let i = 0; i < selectStatus.length; i++) {
         let idStatus = selectStatus[i].id;
         let select = document.getElementById(idStatus);
         let id = idStatus.slice(13, idStatus.length);
-        select.onblur = () => updateStatus(id);
+        select.onchange = () => updateStatus(id);
     }  
 };
 
@@ -45,7 +46,6 @@ async function buy(id) {
         document.location.href = redirect_url;
     } else {
         await updateOrders();
-        //highlightOrders();
     }
 }
 
@@ -58,21 +58,19 @@ async function updateOrders() {
     table.innerHTML = new_tab;
 }
 
-/*async function highlightOrders() {
-    let data_res;
-    await fetch('/highlight_orders')
-        .then(response => response.json())
-        .then((data) => data_res = data);
-    if (data_res['user'] === 'user') {
-        let id_array = data_res['ids'];
-        orders_array = document.getElementsByClassName('order_row');
-        for (let j = 0; j < orders_array.length; j++) {
-            id_order = orders_array[j].id.slice(6, orders_array[j].id.length);
-            for (let i = 0; i < id_array.length; i++) {
-                if (+id_order === id_array[i]) {
-                    orders_array[j].classList.add('this_user_order');
-                }
-            }
-        }
-    }
-}*/
+async function updatePizza(id) {
+    let body = new FormData;
+    body.append('id', id);
+    let newTitle = document.getElementById(`pizza_name_${id}`).value;
+    body.append('new_title', newTitle);
+    let newDescription = document.getElementById(`pizza_description_${id}`).value;
+    body.append('new_description', newDescription);
+    let newCost = document.getElementById(`pizza_cost_${id}`).value;
+    newCost = newCost.slice(3, newCost.indexOf('р'));
+    body.append('new_cost', newCost);
+    await fetch('/update/menu',
+        {
+            method: 'POST',
+            body
+        })
+}
