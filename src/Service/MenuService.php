@@ -51,4 +51,9 @@ class MenuService
         }
         $this->repository->update();
     }
+
+    public function deletePizza($pizza)
+    {
+        $this->repository->remove($pizza);
+    }
 }

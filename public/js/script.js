@@ -1,11 +1,20 @@
 window.onload = async function () {
     let buyButtons = document.querySelectorAll('.buying');
     await updateOrders();
-    for (let i = 1; i <= buyButtons.length; i++) {
-        let button = document.getElementById(`buy_${i}`);
-        let buttonChange = document.getElementById(`change_${i}`);
-        button !== null ? button.addEventListener('click', () => buy(`${i}`)) : null;
-        buttonChange !== null ? buttonChange.addEventListener('click', () => updatePizza(`${i}`)) : null;
+    for (let i = 0; i < buyButtons.length; i++) {
+        buttonId = buyButtons[i].id;
+        buyButtons[i] !== null ? buyButtons[i].addEventListener('click', () => buy(buttonId)) : null;
+    }
+    let updateButtons = document.querySelectorAll('.update');
+    for (let i = 0; i < updateButtons.length; i++)
+    {
+        let thisButtonId = updateButtons[i].id;
+        updateButtons[i] !== null ? updateButtons[i].addEventListener('click', () => updatePizza(thisButtonId)) : null;
+    }
+    let deleteButtons = document.querySelectorAll('.close_icon');
+    for (let i = 0; i < deleteButtons.length; i++) {
+        let thisButtonId = deleteButtons[i].id;
+        deleteButtons[i] !== null ? deleteButtons[i].addEventListener('click', () => deletePizza(thisButtonId)) : null;
     }
     let selectStatus = document.querySelectorAll('.status_select');
     for (let i = 0; i < selectStatus.length; i++) {
@@ -16,14 +25,14 @@ window.onload = async function () {
     }  
     let newPizzaPicture = document.getElementById('new_pizza_picture');
     newPizzaPicture.onblur = () => checkPicture(newPizzaPicture.value);
-    const form = document.getElementById('add_pizza_form');
+    /*const form = document.getElementById('add_pizza_form');
     form.addEventListener('submit', function(e) {
         wrongPicMessage = document.getElementById('wrong_pic_modal');
         if (!wrongPicMessage.style.hidden) {
             e.preventDefault();
         }
 
-    });
+    });*/
 }
 async function checkPicture(newPizzaPicture) {
     let body = new FormData();
@@ -60,6 +69,7 @@ async function updateStatus(id) {
 }
 
 async function buy(id) {
+    id = id.slice(4, id.length)
     let body = new FormData;
     body.append('id', id);
     await fetch('/get_orders',
@@ -86,6 +96,7 @@ async function updateOrders() {
 }
 
 async function updatePizza(id) {
+    id = id.slice(7, id.length)
     let body = new FormData;
     body.append('id', id);
     let newTitle = document.getElementById(`pizza_name_${id}`).value;
@@ -117,16 +128,16 @@ async function updatePizza(id) {
     }
 }
 
-// async function validateModalWindow(formData) {
-//     await fetch('/check/modal', {
-//         method: 'POST',
-//         body: formData
-//     })
-//     .then(response => response.json())
-//     .then((data) => isWrongPicture = data['wrong_pic']);
-//     if (isWrongPicture) {
-//         return false;
-//     } else {
-//         return true;
-//     }
-// }
+async function deletePizza(id) {
+    id = id.slice(13, id.length)
+    let body = new FormData();
+    body.append('id_pizza', id)
+    await fetch('/delete/pizza', {
+        method: 'POST',
+        body
+    });
+    let name = 'this_pizza_' + id;
+    let deletedPizza = document.getElementById(name);
+    deletedPizza.parentNode.removeChild(deletedPizza);
+
+}

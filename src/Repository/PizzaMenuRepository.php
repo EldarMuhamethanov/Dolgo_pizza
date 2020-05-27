@@ -29,6 +29,12 @@ class PizzaMenuRepository extends ServiceEntityRepository
         $this->entityManager->flush();
     }
 
+    public function remove(PizzaMenu $pizza)
+    {
+        $this->entityManager->remove($pizza);
+        $this->entityManager->flush();
+    }
+
     public function getAll()
     {
         $this->entityRepository = $this->entityManager->getRepository(PizzaMenu::class);

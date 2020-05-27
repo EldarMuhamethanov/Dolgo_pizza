@@ -23,42 +23,45 @@
             <div class="container menu-container">
                 <div class="row">
                     {% for pizza in menu %}
-                        <div class="col-lg-3 col-md-4 col-sm-6 pizza_menu">
-                            
-                            <img src="img/{{ pizza.image }}.jpg" class="pizza_pic" id="pizza_image_{{ pizza.id }}"/>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <textarea class="pizza_pic_link" id="pizza_pic_{{ pizza.id }}">{{ pizza.image }}.jpg</textarea>
-                            {% endif %}
-                            <span class="wrong_mess block_hidden" id="wrong_pic_{{ pizza.id }}" >Файл не найден</span>
-                            <div class="about_pizza">
+                        <div class="col-lg-3 col-md-4 col-sm-6 pizza_menu" id="this_pizza_{{ pizza.id }}">
+
+                                <img src="img/{{ pizza.image }}.jpg" class="pizza_pic" id="pizza_image_{{ pizza.id }}"/>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <textarea class="pizza_name" id="pizza_name_{{ pizza.id }}">{{ pizza.titlePizza }}</textarea>
-                                {% else %}
-                                    <h3 class="pizza_name">
-                                        {{ pizza.titlePizza }}
-                                    </h3>
+                                    <img src="img/close.png" class="close_icon" id="delete_pizza_{{ pizza.id }}" />
                                 {% endif %}
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <textarea class="pizza_description" id="pizza_description_{{ pizza.id }}">{{ pizza.description }}</textarea>
-                                {% else %}
-                                    <p class="pizza_description">
-                                        {{ pizza.description }}
+                                    <textarea class="pizza_pic_link" id="pizza_pic_{{ pizza.id }}">{{ pizza.image }}.jpg</textarea>
+                                    <span class="wrong_mess block_hidden" id="wrong_pic_{{ pizza.id }}" >Файл не найден</span>
+                                {% endif %}
+                                <div class="about_pizza">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <textarea class="pizza_name" id="pizza_name_{{ pizza.id }}">{{ pizza.titlePizza }}</textarea>
+                                    {% else %}
+                                        <h3 class="pizza_name">
+                                            {{ pizza.titlePizza }}
+                                        </h3>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <textarea class="pizza_description" id="pizza_description_{{ pizza.id }}">{{ pizza.description }}</textarea>
+                                    {% else %}
+                                        <p class="pizza_description">
+                                            {{ pizza.description }}
+                                        </p>
+                                    {% endif %}     
+                                    <p>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <textarea class="cost" id="pizza_cost_{{ pizza.id }}">от {{ pizza.cost }}р</textarea>
+                                        {% else %}
+                                            <span class="cost">от {{ pizza.cost }}р</span>
+                                        {% endif %}
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <input type="submit" value="Обновить" class="update" id="change_{{ pizza.id }}">
+                                        {% else %}
+                                            <input type="submit" value="Купить" class="buying" id="buy_{{ pizza.id }}">
+                                        {% endif %}
+                                        
                                     </p>
-                                {% endif %}     
-                                <p>
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                        <textarea class="cost" id="pizza_cost_{{ pizza.id }}">от {{ pizza.cost }}р</textarea>
-                                    {% else %}
-                                        <span class="cost">от {{ pizza.cost }}р</span>
-                                    {% endif %}
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                        <input type="submit" value="Обновить" class="buying" id="change_{{ pizza.id }}">
-                                    {% else %}
-                                        <input type="submit" value="Купить" class="buying" id="buy_{{ pizza.id }}">
-                                    {% endif %}
-                                    
-                                </p>
-                            </div>
+                                </div>
                         </div>
                     {% endfor %}
                 </div>

@@ -85,4 +85,14 @@ class MenuController extends AbstractController
             return new Response(json_encode(['wrong_pic' => true]));
         }
     }
+    /**
+     * @Route("/delete/pizza", name="delete_pizza")
+     */
+    public function deletePizza()
+    {
+        $idPizza = $_POST['id_pizza'];
+        $pizza = $this->menuService->findById($idPizza);
+        $this->menuService->deletePizza($pizza);
+        return new Response(json_encode([]));
+    }
 }

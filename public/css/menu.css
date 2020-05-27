@@ -31,7 +31,18 @@
 }
 
 /*============================Меню==============================*/
-
+.close_icon
+{
+    width: 35px;
+    height: 25px;
+    position: absolute;
+    left: 89%;
+    top: 0;
+}
+.close_icon:hover
+{
+    cursor: pointer;
+}
 .pizza_menu {
     padding: -1px 13px 0 10px;
 }
@@ -81,7 +92,8 @@
     border: none;
 }
 
-.buying {
+.buying,
+.update {
     float: right;
     padding: 8px 14px;
     margin-top: -9px;
@@ -94,7 +106,8 @@
     color: #333333;
 }
 
-.buying:hover {
+.buying:hover,
+.update:hover {
     transition: 0.4s;
     background-color: #F2960B;
     color: #fff;
