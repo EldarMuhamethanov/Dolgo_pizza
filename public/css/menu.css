@@ -1,3 +1,12 @@
+.block_visible 
+{
+    visibility: visible;
+}
+
+.block_hidden 
+{
+    visibility: hidden;
+}
 /*=========================НАВИГАЦИЯ============================*/
 .nav {
     margin: 25px 0 0 73px;
@@ -35,16 +44,22 @@
 
 .pizza_pic {
     width: 100%;
+    height: 30px;
     height: auto;
 }
 
 .about_pizza {
-    margin: 24px 0 0 4px;
+    margin: 24px 0 0 0px;
 }
 
 .pizza_name {
     font: normal normal 22px/26px Roboto;
     color: #000000;
+}
+.pizza_pic_link
+{
+    width: 120px;
+    height: 30px;
 }
 
 .pizza_description {

@@ -56,3 +56,7 @@ button:focus {
     margin-right: 4%;
     margin-top: -10px;
 }
+textarea
+{
+    resize: none;
+}

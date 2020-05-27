@@ -37,6 +37,10 @@ class MenuService
         {
             $pizza->setCost($value);
         }
+        if ($nameOfField === 'picture')
+        {
+            $pizza->setImage($value);
+        }
         $this->repository->update();
     }
 }

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+// use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class MenuController extends AbstractController
 {
@@ -38,12 +40,22 @@ class MenuController extends AbstractController
         $newTitle = $_POST['new_title'];
         $newDescription = $_POST['new_description'];
         $newCost = $_POST['new_cost'];
+        $newPic = $_POST['new_pic'];
         $pizza = $this->menuService->findById($idField);
-        $this->menuService->updateField($pizza, 'title', $newTitle);
-        $this->menuService->updateField($pizza, 'description', $newDescription);
+        $pizza->getTitlePizza() !== $newTitle ? $this->menuService->updateField($pizza, 'title', $newTitle) : null;
+        $pizza->getDescription() !== $newDescription ? $this->menuService->updateField($pizza, 'description', $newDescription) : null;        
         if ((int)$newCost <= 2000)
         {
             $this->menuService->updateField($pizza, 'cost', $newCost);
         }
+        if (file_exists('img/' . $newPic . '.jpg'))
+        {
+            $pizza->getImage() !== $newPic ? $this->menuService->updateField($pizza, 'picture', $newPic) : null;           
+            return new Response(json_encode(['wrong_pic' => false]));
+        }
+        else
+        {
+            return new Response(json_encode(['wrong_pic' => true]));
+        }   
     }
 }

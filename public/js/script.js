@@ -2,7 +2,7 @@ window.onload = async function () {
     let buyButtons = document.querySelectorAll('.buying');
     await updateOrders();
     for (let i = 1; i <= buyButtons.length; i++) {
-        let button = document.getElementById(`${i}`);
+        let button = document.getElementById(`buy_${i}`);
         let buttonChange = document.getElementById(`change_${i}`);
         button !== null ? button.addEventListener('click', () => buy(`${i}`)) : null;
         buttonChange !== null ? buttonChange.addEventListener('click', () => updatePizza(`${i}`)) : null;
@@ -68,9 +68,24 @@ async function updatePizza(id) {
     let newCost = document.getElementById(`pizza_cost_${id}`).value;
     newCost = newCost.slice(3, newCost.indexOf('р'));
     body.append('new_cost', newCost);
+    let newPic = document.getElementById(`pizza_pic_${id}`).value;
+    newPic = newPic.slice(0, newPic.length - 4);
+    body.append('new_pic', newPic);
     await fetch('/update/menu',
         {
             method: 'POST',
             body
         })
+        .then(response => response.json())
+        .then((data) => isWrongPic = data['wrong_pic']);
+    let wrongPicMessage = document.getElementById(`wrong_pic_${id}`);
+    if (isWrongPic) {
+        wrongPicMessage.classList.remove('block_hidden');
+        wrongPicMessage.classList.add('block_visible');
+    } else {
+        wrongPicMessage.classList.remove('block_visible');
+        wrongPicMessage.classList.add('block_hidden');
+        let pizzaImage = document.getElementById(`pizza_image_${id}`);
+        pizzaImage.src = 'img/' + newPic + '.jpg'
+    }
 }
