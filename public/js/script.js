@@ -14,8 +14,35 @@ window.onload = async function () {
         let id = idStatus.slice(13, idStatus.length);
         select.onchange = () => updateStatus(id);
     }  
-};
+    let newPizzaPicture = document.getElementById('new_pizza_picture');
+    newPizzaPicture.onblur = () => checkPicture(newPizzaPicture.value);
+    const form = document.getElementById('add_pizza_form');
+    form.addEventListener('submit', function(e) {
+        wrongPicMessage = document.getElementById('wrong_pic_modal');
+        if (!wrongPicMessage.style.hidden) {
+            e.preventDefault();
+        }
 
+    });
+}
+async function checkPicture(newPizzaPicture) {
+    let body = new FormData();
+    body.append('image', newPizzaPicture);
+        await fetch('/check/modal', {
+            method: 'POST',
+            body
+        })
+        .then(response => response.json())
+        .then((data) => isWrongPicture = data['wrong_pic']);
+        wrongPicMessage = document.getElementById('wrong_pic_modal');
+        if (isWrongPicture) {
+            wrongPicMessage.classList.remove('block_hidden');
+            wrongPicMessage.classList.add('block_visible');
+        } else {
+            wrongPicMessage.classList.remove('block_visible');
+            wrongPicMessage.classList.add('block_hidden');
+        }
+}
 async function updateStatus(id) {
     let n = document.getElementById('status_select' + id).options.selectedIndex;
     let value = document.getElementById('status_select' + id).options[n].text;
@@ -89,3 +116,17 @@ async function updatePizza(id) {
         pizzaImage.src = 'img/' + newPic + '.jpg'
     }
 }
+
+// async function validateModalWindow(formData) {
+//     await fetch('/check/modal', {
+//         method: 'POST',
+//         body: formData
+//     })
+//     .then(response => response.json())
+//     .then((data) => isWrongPicture = data['wrong_pic']);
+//     if (isWrongPicture) {
+//         return false;
+//     } else {
+//         return true;
+//     }
+// }

@@ -12,7 +12,15 @@ class MenuService
     {
         $this->repository = $repository;
     }
-
+    public function addPizza(string $image, string $title, string $description, string $cost)
+    {
+        $pizza = new PizzaMenu();
+        $pizza->setImage($image)
+              ->setTitlePizza($title)
+              ->setDescription($description)
+              ->setCost($cost);
+        $this->repository->add($pizza);
+    }
     public function getAllPointOfMenu()
     {
         return $this->repository->getAll();

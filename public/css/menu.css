@@ -55,11 +55,14 @@
 .pizza_name {
     font: normal normal 22px/26px Roboto;
     color: #000000;
+    border: none;
+    height: 36px;
 }
 .pizza_pic_link
 {
     width: 120px;
     height: 30px;
+    border:  none;
 }
 
 .pizza_description {
@@ -68,12 +71,14 @@
     height: 57px;
     overflow: auto;
     width: 245px;
+    border:  none;
 }
 
 .cost {
     font: normal normal 22px/26px Roboto;
     width: 135px;
     height: 40px;
+    border: none;
 }
 
 .buying {
@@ -155,4 +160,34 @@ th, td {
     border: 1px solid;
     border-right: none;
     border-left: none;
+}
+
+/*==========================Модальное окно========================*/
+.modal-body
+{
+    width: 70%;
+    margin: 0 auto;
+}
+.modal-title
+{
+    margin: 0 auto;
+}
+.pizza_data
+{
+    width: 100%;
+    display: block;
+    margin: 0 auto 21px;
+}
+.picture_name
+{
+    margin-bottom: 0;
+}
+.modal_button
+{
+    display: block;
+    /* margin: 0 auto; */
+}
+.wrong_mess
+{
+    color: red;
 }

@@ -58,4 +58,31 @@ class MenuController extends AbstractController
             return new Response(json_encode(['wrong_pic' => true]));
         }   
     }
+    /**
+     * @Route("/add/pizza", name="add_new_pizza")
+     */
+    public function addNewPizza()
+    {
+        $image = $_POST['image'];
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+        $cost = $_POST['cost'];
+        $this->menuService->addPizza($image, $title, $description, $cost);
+        return $this->redirectToRoute('menu');
+    }
+    /**
+     * @Route("/check/modal", name="check_modal_window")
+     */
+    public function validateModalWindow()
+    {
+        $picture = $_POST['image'];
+        if (file_exists('img/' . $picture . '.jpg'))
+        {
+            return new Response(json_encode(['wrong_pic' => false]));
+        }
+        else
+        {
+            return new Response(json_encode(['wrong_pic' => true]));
+        }
+    }
 }

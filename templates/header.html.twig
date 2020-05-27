@@ -5,6 +5,11 @@
       🍕Долго пицца
       </a>
     </h1>
+    {% if is_granted('ROLE_ADMIN') and page == 'menu' %}
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Добавить новую пиццу
+      </button>
+    {% endif %}
     <div class="authorization">
       {% if page == 'menu' or page == 'login' %}
         <a href="/registration"><button class="registration">Регистрация</button></a>
