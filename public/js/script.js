@@ -2,7 +2,7 @@ window.onload = async function () {
     let buyButtons = document.querySelectorAll('.buying');
     await updateOrders();
     for (let i = 0; i < buyButtons.length; i++) {
-        buttonId = buyButtons[i].id;
+        let buttonId = buyButtons[i].id;
         buyButtons[i] !== null ? buyButtons[i].addEventListener('click', () => buy(buttonId)) : null;
     }
     let updateButtons = document.querySelectorAll('.update');
@@ -23,19 +23,22 @@ window.onload = async function () {
         let id = idStatus.slice(13, idStatus.length);
         select.onchange = () => updateStatus(id);
     }  
+    let sortByIncreaseCostButton = document.getElementById('sort_by_increase_cost');
+    sortByIncreaseCostButton.onclick = () => sortByIcreaseCost();
+    let sortByDecreaseCostButton = document.getElementById('sort_by_decrease_cost');
+    sortByDecreaseCostButton.onclick = () => sortByDecreaseCost();
     let newPizzaPicture = document.getElementById('new_pizza_picture');
     newPizzaPicture.onblur = () => checkPicture(newPizzaPicture.value);
-    /*const form = document.getElementById('add_pizza_form');
-    form.addEventListener('submit', function(e) {
-        wrongPicMessage = document.getElementById('wrong_pic_modal');
-        if (!wrongPicMessage.style.hidden) {
-            e.preventDefault();
-        }
-
-    });*/
+    let orderDeleteButtons = document.querySelectorAll('.delete_order_icon');
+    for (let i = 0; i < orderDeleteButtons.length; i++)
+    {
+        let thisButtonId = orderDeleteButtons[i].id;
+        orderDeleteButtons[i] !== null ? orderDeleteButtons[i].addEventListener('click', () => deleteOrder(thisButtonId)) : null;
+    }
 }
 async function checkPicture(newPizzaPicture) {
     let body = new FormData();
+    newPizzaPicture = newPizzaPicture.slice(0, newPizzaPicture.length - 4);
     body.append('image', newPizzaPicture);
         await fetch('/check/modal', {
             method: 'POST',
@@ -47,9 +50,11 @@ async function checkPicture(newPizzaPicture) {
         if (isWrongPicture) {
             wrongPicMessage.classList.remove('block_hidden');
             wrongPicMessage.classList.add('block_visible');
+            wrongPicMessage.innerHTML = 'Файл не найден';
         } else {
-            wrongPicMessage.classList.remove('block_visible');
-            wrongPicMessage.classList.add('block_hidden');
+            wrongPicMessage.innerHTML = '<img src="img/' + newPizzaPicture + '.jpg" class="modal_picture">'
+            wrongPicMessage.classList.remove('block_hidden');
+            wrongPicMessage.classList.add('block_visible');
         }
 }
 async function updateStatus(id) {
@@ -90,7 +95,6 @@ async function updateOrders() {
     await fetch('/order/table')
         .then(response => response.text())
         .then((data) => new_tab = data);
-    console.log(new_tab);
     let table = document.getElementById('order_table');
     table.innerHTML = new_tab;
 }
@@ -129,15 +133,76 @@ async function updatePizza(id) {
 }
 
 async function deletePizza(id) {
-    id = id.slice(13, id.length)
+    id = id.slice(13, id.length);
     let body = new FormData();
-    body.append('id_pizza', id)
+    body.append('id_pizza', id);
+    let name = 'this_pizza_' + id;
+    let deletedPizza = document.getElementById(name);
+    deletedPizza.parentNode.removeChild(deletedPizza);
     await fetch('/delete/pizza', {
         method: 'POST',
         body
     });
-    let name = 'this_pizza_' + id;
-    let deletedPizza = document.getElementById(name);
-    deletedPizza.parentNode.removeChild(deletedPizza);
+}
 
+async function deleteOrder(id) {
+    id = id.slice(13, id.length);
+    let body = new FormData();
+    body.append('id_order', id);
+    let name = 'order_' + id;
+    let deletedOrder = document.getElementById(name);
+    deletedOrder.parentNode.removeChild(deletedOrder);
+    await fetch('/delete/order', {
+        method: 'POST',
+        body
+    });
+}
+function sortByIcreaseCost() {
+    var list, i, switching, b, shouldSwitch;
+    list = document.getElementById("pizza_list");
+    switching = true;
+    while (switching) {
+        switching = false;
+        b = list.querySelectorAll('.pizza_menu');
+        for (i = 0; i < (b.length - 1); i++) {
+            shouldSwitch = false;
+            let firstCost = b[i].querySelector('.cost').textContent;
+            firstCost = firstCost.slice(3, firstCost.length - 1);
+            let secondCost = b[i + 1].querySelector('.cost').textContent;
+            secondCost = secondCost.slice(3, secondCost.length - 1);
+            if (Number(firstCost) > Number(secondCost)) {
+                shouldSwitch = true;
+                break;
+            }
+        }
+        if (shouldSwitch) {
+            b[i].parentNode.insertBefore(b[i + 1], b[i]);
+            switching = true;
+        }
+    }
+}
+
+function sortByDecreaseCost() {
+    var list, i, switching, b, shouldSwitch;
+    list = document.getElementById("pizza_list");
+    switching = true;
+    while (switching) {
+        switching = false;
+        b = list.querySelectorAll('.pizza_menu');
+        for (i = 0; i < (b.length - 1); i++) {
+            shouldSwitch = false;
+            let firstCost = b[i].querySelector('.cost').textContent;
+            firstCost = firstCost.slice(3, firstCost.length - 1);
+            let secondCost = b[i + 1].querySelector('.cost').textContent;
+            secondCost = secondCost.slice(3, secondCost.length - 1);
+            if (Number(firstCost) < Number(secondCost)) {
+                shouldSwitch = true;
+                break;
+            }
+        }
+        if (shouldSwitch) {
+            b[i].parentNode.insertBefore(b[i + 1], b[i]);
+            switching = true;
+        }
+    }
 }

@@ -9,7 +9,12 @@
         </tr>
         {% for number in orders %}
             <tr class="order_row{% if orderIdArray[number.id] is defined %} this_user_order {% endif %}" id="order_{{ number.id }}">
-                <td class="number">#{{ number.id }}</td>
+                <td class="number">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <img src="img/close.png" class="delete_order_icon" id="delete_order_{{ number.id }}" />
+                    {% endif %}
+                    #{{ number.id }}
+                </td>
                 <td class="name_order">{{ number.pizza }}</td>
                 <td class="price">{{ number.cost }}</td>
                 <td class="client">{{ number.user }}</td>

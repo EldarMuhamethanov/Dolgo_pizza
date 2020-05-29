@@ -39,9 +39,17 @@
     left: 89%;
     top: 0;
 }
-.close_icon:hover
+.close_icon:hover,
+.delete_order_icon:hover
 {
     cursor: pointer;
+}
+.delete_order_icon
+{
+    width: 35px;
+    height: 25px;
+    position: absolute;
+    left: 30px;
 }
 .pizza_menu {
     padding: -1px 13px 0 10px;
@@ -193,7 +201,7 @@ th, td {
 }
 .picture_name
 {
-    margin-bottom: 0;
+    /* margin-bottom: 0; */
 }
 .modal_button
 {
@@ -203,4 +211,29 @@ th, td {
 .wrong_mess
 {
     color: red;
+}
+.modal_picture
+{
+    width: 100px;
+    height: 100px;
+}
+.button_sort
+{
+    height: 32px;
+    padding: 4px;
+    font: normal normal 10px/1.5 Roboto;
+    box-sizing: border-box;
+    /* margin-top: 14px; */
+    /* position: absolute; */
+    /* left: 90%; */
+    /* top: 35%; */
+}
+.button_sort:focus
+{
+    outline: none;
+}
+.sort_by
+{
+    margin-top: -15px;
+    margin-right: 10px;
 }

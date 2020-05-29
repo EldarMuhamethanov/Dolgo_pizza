@@ -35,7 +35,11 @@ class OrdersRepository extends ServiceEntityRepository
         $this->entityManager->persist($order);
         $this->entityManager->flush();
     }
-
+    public function remove(Orders $order)
+    {
+        $this->entityManager->remove($order);
+        $this->entityManager->flush();
+    }
     public function findById(string $id)
     {
         $this->entityRepository = $this->entityManager->getRepository(Orders::class);

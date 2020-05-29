@@ -28,6 +28,10 @@ class OrdersService
               ->setUserEmail($userEmail);
         $this->repository->add($order);
     }
+    public function deleteOrder($order)
+    {
+        $this->repository->remove($order);
+    }
 
     public function findById(string $id)
     {

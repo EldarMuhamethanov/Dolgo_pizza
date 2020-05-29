@@ -21,47 +21,53 @@
     <div class="tab-content">
         <div class="tab-pane active" id="Menu">
             <div class="container menu-container">
-                <div class="row">
+                {% if not is_granted('ROLE_ADMIN') %}
+                    <div class="row justify-content-end">
+                        <span class="sort_by">Цена по:</span>
+                        <button type="button" class="registration button_sort" id="sort_by_increase_cost">По возрастанию</button>
+                        <button type="button" class="registration button_sort" id="sort_by_decrease_cost">По убыванию</button>
+                    </div>
+                {% endif %}
+                <div class="row" id="pizza_list">
                     {% for pizza in menu %}
                         <div class="col-lg-3 col-md-4 col-sm-6 pizza_menu" id="this_pizza_{{ pizza.id }}">
-
-                                <img src="img/{{ pizza.image }}.jpg" class="pizza_pic" id="pizza_image_{{ pizza.id }}"/>
+                            <img src="img/{{ pizza.image }}.jpg" class="pizza_pic" id="pizza_image_{{ pizza.id }}"/>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <img src="img/close.png" class="close_icon" id="delete_pizza_{{ pizza.id }}" />
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <textarea class="pizza_pic_link" id="pizza_pic_{{ pizza.id }}">{{ pizza.image }}.jpg</textarea>
+                                <span class="wrong_mess block_hidden" id="wrong_pic_{{ pizza.id }}" >Файл не найден</span>
+                            {% endif %}
+                            <div class="about_pizza">
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <img src="img/close.png" class="close_icon" id="delete_pizza_{{ pizza.id }}" />
+                                    <textarea class="pizza_name" id="pizza_name_{{ pizza.id }}">{{ pizza.titlePizza }}</textarea>
+                                {% else %}
+                                    <h3 class="pizza_name">
+                                        {{ pizza.titlePizza }}
+                                    </h3>
                                 {% endif %}
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <textarea class="pizza_pic_link" id="pizza_pic_{{ pizza.id }}">{{ pizza.image }}.jpg</textarea>
-                                    <span class="wrong_mess block_hidden" id="wrong_pic_{{ pizza.id }}" >Файл не найден</span>
-                                {% endif %}
-                                <div class="about_pizza">
+                                    <textarea class="pizza_description" id="pizza_description_{{ pizza.id }}">{{ pizza.description }}</textarea>
+                                {% else %}
+                                    <p class="pizza_description">
+                                        {{ pizza.description }}
+                                    </p>
+                                {% endif %}     
+                                <p>
                                     {% if is_granted('ROLE_ADMIN') %}
-                                        <textarea class="pizza_name" id="pizza_name_{{ pizza.id }}">{{ pizza.titlePizza }}</textarea>
+                                        <textarea class="cost" id="pizza_cost_{{ pizza.id }}">от {{ pizza.cost }}р</textarea>
                                     {% else %}
-                                        <h3 class="pizza_name">
-                                            {{ pizza.titlePizza }}
-                                        </h3>
+                                        <span class="cost">от {{ pizza.cost }}р</span>
                                     {% endif %}
                                     {% if is_granted('ROLE_ADMIN') %}
-                                        <textarea class="pizza_description" id="pizza_description_{{ pizza.id }}">{{ pizza.description }}</textarea>
+                                        <input type="submit" value="Обновить" class="update" id="change_{{ pizza.id }}">
                                     {% else %}
-                                        <p class="pizza_description">
-                                            {{ pizza.description }}
-                                        </p>
-                                    {% endif %}     
-                                    <p>
-                                        {% if is_granted('ROLE_ADMIN') %}
-                                            <textarea class="cost" id="pizza_cost_{{ pizza.id }}">от {{ pizza.cost }}р</textarea>
-                                        {% else %}
-                                            <span class="cost">от {{ pizza.cost }}р</span>
-                                        {% endif %}
-                                        {% if is_granted('ROLE_ADMIN') %}
-                                            <input type="submit" value="Обновить" class="update" id="change_{{ pizza.id }}">
-                                        {% else %}
-                                            <input type="submit" value="Купить" class="buying" id="buy_{{ pizza.id }}">
-                                        {% endif %}
-                                        
-                                    </p>
-                                </div>
+                                        <input type="submit" value="Купить" class="buying" id="buy_{{ pizza.id }}" >
+                                    {% endif %}
+                                    
+                                </p>
+                            </div>
                         </div>
                     {% endfor %}
                 </div>
@@ -84,12 +90,19 @@
           </div>
           <div class="modal-body">
             <form action="{{ path('add_new_pizza') }}" method="POST" id="add_pizza_form" class="add_pizza_form">
-                <input type="text" name="image" class="pizza_data picture_name" id="new_pizza_picture" placeholder="Картинка" required/> 
-                <span class="wrong_mess block_hidden" id="wrong_pic_modal" >Файл не найден</span><br />
+                <!-- <input type="text" name="image" class="pizza_data picture_name" id="new_pizza_picture" placeholder="Картинка" required/>  -->
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Dolgo_pizza/public/img/</span>
+                  </div>
+                  <input type="text" name="image" class="form-control pizza_data picture_name" id="new_pizza_picture" placeholder="Картинка" aria-describedby="basic-addon3">
+                </div>
+                <div class="wrong_mess block_hidden" id="wrong_pic_modal" ></div>
                 <input type="text" name="title" class="pizza_data" placeholder="Название" required/> 
                 <textarea name="description" class="pizza_data" placeholder="Описание"></textarea> 
                 <input type="text" name="cost" class="pizza_data" placeholder="Цена" required/> 
-                <button type="submit" class="btn btn-primary modal_button">Добавить</button>
+                
+                <button type="submit" class="btn btn-warning modal_button">Добавить</button>
               </form>
           </div> 
         </div>

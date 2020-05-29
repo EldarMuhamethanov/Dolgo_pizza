@@ -64,8 +64,9 @@ class MenuController extends AbstractController
     public function addNewPizza()
     {
         $image = $_POST['image'];
-        $title = $_POST['title'];
+        $image = substr($image, 0, strlen($image) - 4);
         $description = $_POST['description'];
+        $title = $_POST['title'];
         $cost = $_POST['cost'];
         $this->menuService->addPizza($image, $title, $description, $cost);
         return $this->redirectToRoute('menu');

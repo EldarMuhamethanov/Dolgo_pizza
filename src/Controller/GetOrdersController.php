@@ -50,5 +50,14 @@ class GetOrdersController extends AbstractController
         $this->orderService->updateField($order, 'status', $value);
         return new Response(json_encode(['new_value' => $value]));
     }
-
+    /**
+     * @Route("/delete/order", name="delete_order")
+     */
+    public function deleteOrder()
+    {
+        $id = $_POST['id_order'];
+        $order = $this->orderService->findById($id);
+        $this->orderService->deleteOrder($order);
+        return new Response(json_encode([]));
+    }
 }
