@@ -52,12 +52,19 @@
     left: 30px;
 }
 .pizza_menu {
-    padding: -1px 13px 0 10px;
+    padding: 3px 15px 3px 15px;
+    box-sizing: border-box;
 }
-
+/* .pizza_menu:hover
+{
+    border: 3px solid #F2960B;
+    border-radius: 10px;
+    padding: 0px 12px 0 12px;
+    transition: 0.2s;
+} */
 .menu-container {
     padding: 0;
-    margin: 30px 0 0 40px;
+    margin: 0px 0 0 40px;
     max-width: 95%;
 }
 
@@ -89,7 +96,7 @@
     margin-bottom: 27px;
     height: 57px;
     overflow: auto;
-    width: 245px;
+    width: 100%;
     border:  none;
 }
 
@@ -177,7 +184,7 @@ th, td {
 }
 
 .this_user_order {
-    background: orange;
+    background: #F2960B;
     border: 1px solid;
     border-right: none;
     border-left: none;
@@ -199,10 +206,6 @@ th, td {
     display: block;
     margin: 0 auto 21px;
 }
-.picture_name
-{
-    /* margin-bottom: 0; */
-}
 .modal_button
 {
     display: block;
@@ -219,9 +222,9 @@ th, td {
 }
 .button_sort
 {
-    height: 32px;
-    padding: 4px;
-    font: normal normal 10px/1.5 Roboto;
+    /* height: 32px; */
+    padding: 5px;
+    font: normal normal 12px/1.5 Roboto;
     box-sizing: border-box;
     /* margin-top: 14px; */
     /* position: absolute; */
@@ -234,6 +237,6 @@ th, td {
 }
 .sort_by
 {
-    margin-top: -15px;
+    /* margin-top: -15px; */
     margin-right: 10px;
 }

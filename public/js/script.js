@@ -1,21 +1,24 @@
-window.onload = async function () {
-    let buyButtons = document.querySelectorAll('.buying');
+window.onload = async function () { 
     await updateOrders();
+    
+    let buyButtons = document.querySelectorAll('.buying');
     for (let i = 0; i < buyButtons.length; i++) {
         let buttonId = buyButtons[i].id;
         buyButtons[i] !== null ? buyButtons[i].addEventListener('click', () => buy(buttonId)) : null;
     }
+
     let updateButtons = document.querySelectorAll('.update');
-    for (let i = 0; i < updateButtons.length; i++)
-    {
+    for (let i = 0; i < updateButtons.length; i++) {
         let thisButtonId = updateButtons[i].id;
         updateButtons[i] !== null ? updateButtons[i].addEventListener('click', () => updatePizza(thisButtonId)) : null;
     }
+
     let deleteButtons = document.querySelectorAll('.close_icon');
     for (let i = 0; i < deleteButtons.length; i++) {
         let thisButtonId = deleteButtons[i].id;
         deleteButtons[i] !== null ? deleteButtons[i].addEventListener('click', () => deletePizza(thisButtonId)) : null;
     }
+
     let selectStatus = document.querySelectorAll('.status_select');
     for (let i = 0; i < selectStatus.length; i++) {
         let idStatus = selectStatus[i].id;
@@ -23,18 +26,22 @@ window.onload = async function () {
         let id = idStatus.slice(13, idStatus.length);
         select.onchange = () => updateStatus(id);
     }  
+
     let sortByIncreaseCostButton = document.getElementById('sort_by_increase_cost');
-    sortByIncreaseCostButton.onclick = () => sortByIcreaseCost();
+    sortByIncreaseCostButton !== null ? sortByIncreaseCostButton.onclick = () => sortByIcreaseCost() : null;
     let sortByDecreaseCostButton = document.getElementById('sort_by_decrease_cost');
-    sortByDecreaseCostButton.onclick = () => sortByDecreaseCost();
+    sortByDecreaseCostButton !== null ? sortByDecreaseCostButton.onclick = () => sortByDecreaseCost() : null;
+
     let newPizzaPicture = document.getElementById('new_pizza_picture');
     newPizzaPicture.onblur = () => checkPicture(newPizzaPicture.value);
+
     let orderDeleteButtons = document.querySelectorAll('.delete_order_icon');
-    for (let i = 0; i < orderDeleteButtons.length; i++)
-    {
+    for (let i = 0; i < orderDeleteButtons.length; i++) {
         let thisButtonId = orderDeleteButtons[i].id;
         orderDeleteButtons[i] !== null ? orderDeleteButtons[i].addEventListener('click', () => deleteOrder(thisButtonId)) : null;
     }
+
+    // let timerId = setInterval(() => updateOrders(), 5000);
 }
 async function checkPicture(newPizzaPicture) {
     let body = new FormData();
@@ -97,6 +104,7 @@ async function updateOrders() {
         .then((data) => new_tab = data);
     let table = document.getElementById('order_table');
     table.innerHTML = new_tab;
+    //sortOrders();
 }
 
 async function updatePizza(id) {
@@ -158,7 +166,7 @@ async function deleteOrder(id) {
     });
 }
 function sortByIcreaseCost() {
-    var list, i, switching, b, shouldSwitch;
+    let list, i, switching, b, shouldSwitch;
     list = document.getElementById("pizza_list");
     switching = true;
     while (switching) {
@@ -183,7 +191,7 @@ function sortByIcreaseCost() {
 }
 
 function sortByDecreaseCost() {
-    var list, i, switching, b, shouldSwitch;
+    let list, i, switching, b, shouldSwitch;
     list = document.getElementById("pizza_list");
     switching = true;
     while (switching) {
@@ -196,6 +204,36 @@ function sortByDecreaseCost() {
             let secondCost = b[i + 1].querySelector('.cost').textContent;
             secondCost = secondCost.slice(3, secondCost.length - 1);
             if (Number(firstCost) < Number(secondCost)) {
+                shouldSwitch = true;
+                break;
+            }
+        }
+        if (shouldSwitch) {
+            b[i].parentNode.insertBefore(b[i + 1], b[i]);
+            switching = true;
+        }
+    }
+}
+
+function sortOrders()
+{
+    let list, i, switching, b, shouldSwitch;
+    list = document.getElementById("order_table");
+    switching = true;
+    while (switching) {
+        switching = false;
+        b = list.querySelectorAll('.order_row');
+        for (i = 0; i < (b.length - 1); i++) {
+            shouldSwitch = false;
+            // let firstCost = b[i].querySelector('.cost').textContent;
+            // firstCost = firstCost.slice(3, firstCost.length - 1);
+            // let secondCost = b[i + 1].querySelector('.cost').textContent;
+            // secondCost = secondCost.slice(3, secondCost.length - 1);
+            let firstId = b[i].querySelector('.status_select').id;
+            let n1 = document.getElementById(firstId).options.selectedIndex;
+            let secondId = b[i+1].querySelector('.status_select').id;
+            let n2 = document.getElementById(secondId).options.selectedIndex;
+            if (Number(n1) < Number(n2)) {
                 shouldSwitch = true;
                 break;
             }

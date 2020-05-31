@@ -22,10 +22,19 @@
         <div class="tab-pane active" id="Menu">
             <div class="container menu-container">
                 {% if not is_granted('ROLE_ADMIN') %}
-                    <div class="row justify-content-end">
+                    <div class="row justify-content-end align-items-center">
                         <span class="sort_by">Цена по:</span>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-warning active button_sort">
+                            <input type="radio" name="options"  class="registration button_sort" id="sort_by_increase_cost" autocomplete="off" checked> По возрастанию
+                          </label>
+                          <label class="btn btn-warning button_sort">
+                            <input type="radio" name="options"  class="registration button_sort" id="sort_by_decrease_cost" autocomplete="off"> По убыванию
+                          </label>
+                        </div>
+                        <!-- <span class="sort_by">Цена по:</span>
                         <button type="button" class="registration button_sort" id="sort_by_increase_cost">По возрастанию</button>
-                        <button type="button" class="registration button_sort" id="sort_by_decrease_cost">По убыванию</button>
+                        <button type="button" class="registration button_sort" id="sort_by_decrease_cost">По убыванию</button> -->
                     </div>
                 {% endif %}
                 <div class="row" id="pizza_list">
@@ -33,7 +42,8 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 pizza_menu" id="this_pizza_{{ pizza.id }}">
                             <img src="img/{{ pizza.image }}.jpg" class="pizza_pic" id="pizza_image_{{ pizza.id }}"/>
                             {% if is_granted('ROLE_ADMIN') %}
-                                <img src="img/close.png" class="close_icon" id="delete_pizza_{{ pizza.id }}" />
+                                {# <img src="img/close.png" class="close_icon" id="delete_pizza_{{ pizza.id }}" /> #}
+                                <button class="close_icon" id="delete_pizza_{{ pizza.id }}">X</button>
                             {% endif %}
                             {% if is_granted('ROLE_ADMIN') %}
                                 <textarea class="pizza_pic_link" id="pizza_pic_{{ pizza.id }}">{{ pizza.image }}.jpg</textarea>

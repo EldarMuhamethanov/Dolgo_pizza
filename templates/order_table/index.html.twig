@@ -11,7 +11,8 @@
             <tr class="order_row{% if orderIdArray[number.id] is defined %} this_user_order {% endif %}" id="order_{{ number.id }}">
                 <td class="number">
                     {% if is_granted('ROLE_ADMIN') %}
-                        <img src="img/close.png" class="delete_order_icon" id="delete_order_{{ number.id }}" />
+                        {# <img src="img/close.png" class="delete_order_icon" id="delete_order_{{ number.id }}" /> #}
+                        <button class="delete_order_icon" id="delete_order_{{ number.id }}">X</button>
                     {% endif %}
                     #{{ number.id }}
                 </td>
@@ -22,12 +23,10 @@
                 <td class="status">
                     {% if is_granted('ROLE_ADMIN') %}
                         <select id="status_select{{ number.id }}" class="status_select">
+                            <option {% if number.status == 'Готовится' %} selected {% endif %}>Готовится</option>
                             <option {% if number.status == 'Готово' %} selected {% endif %}>Готово</option>
-                            <option {% if number.status == 'Готовится' %} selected {% endif %}>Готовится
-                            </option>
                             <option {% if number.status == 'В пути' %} selected {% endif %}>В пути</option>
-                            <option {% if number.status == 'Доставлено' %} selected {% endif %}>Доставлено
-                            </option>
+                            <option {% if number.status == 'Доставлено' %} selected {% endif %}>Доставлено</option>
                         </select>
                     {% endif %}
                     {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') and not is_granted('ROLE_ADMIN') %}
