@@ -1,6 +1,9 @@
-window.onload = async function () { 
+window.onload = async function () {
     await updateOrders();
-    
+    initialize();
+};
+
+function initialize() {
     let buyButtons = document.querySelectorAll('.buying');
     for (let i = 0; i < buyButtons.length; i++) {
         let buttonId = buyButtons[i].id;
@@ -25,7 +28,7 @@ window.onload = async function () {
         let select = document.getElementById(idStatus);
         let id = idStatus.slice(13, idStatus.length);
         select.onchange = () => updateStatus(id);
-    }  
+    }
 
     let sortByIncreaseCostButton = document.getElementById('sort_by_increase_cost');
     sortByIncreaseCostButton !== null ? sortByIncreaseCostButton.onclick = () => sortByIcreaseCost() : null;
@@ -40,9 +43,8 @@ window.onload = async function () {
         let thisButtonId = orderDeleteButtons[i].id;
         orderDeleteButtons[i] !== null ? orderDeleteButtons[i].addEventListener('click', () => deleteOrder(thisButtonId)) : null;
     }
-
-    // let timerId = setInterval(() => updateOrders(), 5000);
 }
+
 async function checkPicture(newPizzaPicture) {
     let body = new FormData();
     newPizzaPicture = newPizzaPicture.slice(0, newPizzaPicture.length - 4);
@@ -81,7 +83,7 @@ async function updateStatus(id) {
 }
 
 async function buy(id) {
-    id = id.slice(4, id.length)
+    id = id.slice(4, id.length);
     let body = new FormData;
     body.append('id', id);
     await fetch('/get_orders',
@@ -104,11 +106,10 @@ async function updateOrders() {
         .then((data) => new_tab = data);
     let table = document.getElementById('order_table');
     table.innerHTML = new_tab;
-    //sortOrders();
 }
 
 async function updatePizza(id) {
-    id = id.slice(7, id.length)
+    id = id.slice(7, id.length);
     let body = new FormData;
     body.append('id', id);
     let newTitle = document.getElementById(`pizza_name_${id}`).value;
@@ -153,14 +154,14 @@ async function deletePizza(id) {
     });
 }
 
-async function deleteOrder(id) {
+function deleteOrder(id) {
     id = id.slice(13, id.length);
     let body = new FormData();
     body.append('id_order', id);
     let name = 'order_' + id;
     let deletedOrder = document.getElementById(name);
     deletedOrder.parentNode.removeChild(deletedOrder);
-    await fetch('/delete/order', {
+    fetch('/delete/order', {
         method: 'POST',
         body
     });
@@ -215,32 +216,33 @@ function sortByDecreaseCost() {
     }
 }
 
-function sortOrders()
-{
-    let list, i, switching, b, shouldSwitch;
-    list = document.getElementById("order_table");
-    switching = true;
-    while (switching) {
-        switching = false;
-        b = list.querySelectorAll('.order_row');
-        for (i = 0; i < (b.length - 1); i++) {
-            shouldSwitch = false;
-            // let firstCost = b[i].querySelector('.cost').textContent;
-            // firstCost = firstCost.slice(3, firstCost.length - 1);
-            // let secondCost = b[i + 1].querySelector('.cost').textContent;
-            // secondCost = secondCost.slice(3, secondCost.length - 1);
-            let firstId = b[i].querySelector('.status_select').id;
-            let n1 = document.getElementById(firstId).options.selectedIndex;
-            let secondId = b[i+1].querySelector('.status_select').id;
-            let n2 = document.getElementById(secondId).options.selectedIndex;
-            if (Number(n1) < Number(n2)) {
-                shouldSwitch = true;
-                break;
-            }
-        }
-        if (shouldSwitch) {
-            b[i].parentNode.insertBefore(b[i + 1], b[i]);
-            switching = true;
-        }
-    }
-}
+// function sortOrders()
+// {
+//     let list, i, switching, b, shouldSwitch;
+//     let status_array = ['Готовится', 'Готово', 'В пути', 'Доставлено'];
+//     list = document.getElementById("order_table");
+//     switching = true;
+//     while (switching) {
+//         switching = false;
+//         b = list.querySelectorAll('.order_row');
+//         for (i = 0; i < (b.length - 1); i++) {
+//             shouldSwitch = false;
+//             // let firstCost = b[i].querySelector('.cost').textContent;
+//             // firstCost = firstCost.slice(3, firstCost.length - 1);
+//             // let secondCost = b[i + 1].querySelector('.cost').textContent;
+//             // secondCost = secondCost.slice(3, secondCost.length - 1);
+//             let firstId = b[i].querySelector('.status').textContent;
+//             let n1 = status_array.indexOf(firstId);
+//             let secondId = b[i+1].querySelector('.status').textContent;
+//             let n2 = status_array.indexOf(secondId);
+//             if (Number(n1) < Number(n2)) {
+//                 shouldSwitch = true;
+//                 break;
+//             }
+//         }
+//         if (shouldSwitch) {
+//             b[i].parentNode.insertBefore(b[i + 1], b[i]);
+//             switching = true;
+//         }
+//     }
+//}
