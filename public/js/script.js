@@ -1,40 +1,15 @@
 window.onload = async function () {
     await updateOrders();
-    initialize();
+    initializeEvents();
+    // setInterval(async function() {
+    //     await updateOrders();
+    // }, 5000)
 };
 
-function initialize() {
-    let buyButtons = document.querySelectorAll('.buying');
-    for (let i = 0; i < buyButtons.length; i++) {
-        let buttonId = buyButtons[i].id;
-        buyButtons[i] !== null ? buyButtons[i].addEventListener('click', () => buy(buttonId)) : null;
-    }
-
-    let updateButtons = document.querySelectorAll('.update');
-    for (let i = 0; i < updateButtons.length; i++) {
-        let thisButtonId = updateButtons[i].id;
-        updateButtons[i] !== null ? updateButtons[i].addEventListener('click', () => updatePizza(thisButtonId)) : null;
-    }
-
-    let deleteButtons = document.querySelectorAll('.close_icon');
-    for (let i = 0; i < deleteButtons.length; i++) {
-        let thisButtonId = deleteButtons[i].id;
-        deleteButtons[i] !== null ? deleteButtons[i].addEventListener('click', () => deletePizza(thisButtonId)) : null;
-    }
-
-    let selectStatus = document.querySelectorAll('.status_select');
-    for (let i = 0; i < selectStatus.length; i++) {
-        let idStatus = selectStatus[i].id;
-        let select = document.getElementById(idStatus);
-        let id = idStatus.slice(13, idStatus.length);
-        select.onchange = () => updateStatus(id);
-    }
-
-    let orderDeleteButtons = document.querySelectorAll('.delete_order_icon');
-    for (let i = 0; i < orderDeleteButtons.length; i++) {
-        let thisButtonId = orderDeleteButtons[i].id;
-        orderDeleteButtons[i] !== null ? orderDeleteButtons[i].addEventListener('click', () => deleteOrder(thisButtonId)) : null;
-    }
+function initializeEvents() {
+    initializeMenuEvents();
+    
+    initializeOrderEvents();
 
     let sortByIncreaseCostButton = document.getElementById('sort_by_increase_cost');
     sortByIncreaseCostButton !== null ? sortByIncreaseCostButton.onclick = () => sortByIcreaseCost() : null;
@@ -60,6 +35,41 @@ function initialize() {
             isSuccess.classList.add('block_visible');
         }
     })
+}
+
+function initializeOrderEvents() {
+    let selectStatus = document.querySelectorAll('.status_select');
+    for (let i = 0; i < selectStatus.length; i++) {
+        let idStatus = selectStatus[i].id;
+        let select = document.getElementById(idStatus);
+        let id = idStatus.slice(13, idStatus.length);
+        select.onchange = () => updateStatus(id);
+    }
+
+    let orderDeleteButtons = document.querySelectorAll('.delete_order_icon');
+    for (let i = 0; i < orderDeleteButtons.length; i++) {
+        let thisButtonId = orderDeleteButtons[i].id;
+        orderDeleteButtons[i] !== null ? orderDeleteButtons[i].addEventListener('click', () => deleteOrder(thisButtonId)) : null;
+    }
+}
+function initializeMenuEvents() {
+    let buyButtons = document.querySelectorAll('.buying');
+    for (let i = 0; i < buyButtons.length; i++) {
+        let buttonId = buyButtons[i].id;
+        buyButtons[i] !== null ? buyButtons[i].addEventListener('click', () => buy(buttonId)) : null;
+    }
+
+    let updateButtons = document.querySelectorAll('.update');
+    for (let i = 0; i < updateButtons.length; i++) {
+        let thisButtonId = updateButtons[i].id;
+        updateButtons[i] !== null ? updateButtons[i].addEventListener('click', () => updatePizza(thisButtonId)) : null;
+    }
+
+    let deleteButtons = document.querySelectorAll('.close_icon');
+    for (let i = 0; i < deleteButtons.length; i++) {
+        let thisButtonId = deleteButtons[i].id;
+        deleteButtons[i] !== null ? deleteButtons[i].addEventListener('click', () => deletePizza(thisButtonId)) : null;
+    }
 }
 
 async function validateModal(form) {
@@ -120,6 +130,7 @@ async function updateStatus(id) {
         })
         .then(response => response.json())
         .then((data) => console.log(data));
+        await updateOrders();
 }
 
 async function buy(id) {
@@ -146,6 +157,7 @@ async function updateOrders() {
         .then((data) => new_tab = data);
     let table = document.getElementById('order_table');
     table.innerHTML = new_tab;
+    initializeOrderEvents();
 }
 
 async function updatePizza(id) {

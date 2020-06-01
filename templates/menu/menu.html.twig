@@ -24,7 +24,7 @@
                 {% if not is_granted('ROLE_ADMIN') %}
                     <div class="row justify-content-end align-items-center">
                         <span class="sort_by">Цена по:</span>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <div class="btn-group btn-group-toggle sort_block" data-toggle="buttons">
                           <label class="btn btn-warning active button_sort">
                             <input type="radio" name="options"  class="registration button_sort" id="sort_by_increase_cost" autocomplete="off" checked> По возрастанию
                           </label>

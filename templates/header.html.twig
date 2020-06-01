@@ -15,7 +15,7 @@
       {% if (page == 'menu' or page == 'login') and not is_granted('ROLE_ADMIN')  %}
         <a href="/registration"><button class="registration">Регистрация</button></a>
       {% endif %}
-      {% if page == 'menu' or page == 'registration' %}
+      {% if page == 'menu' or page == 'registration' or page == 'users' %}
         {% if  not is_granted('IS_AUTHENTICATED_FULLY') %}
             <a href="/login"><button class="login">Вход</button></a>
         {% endif %} 
