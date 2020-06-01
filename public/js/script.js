@@ -30,6 +30,12 @@ function initialize() {
         select.onchange = () => updateStatus(id);
     }
 
+    let orderDeleteButtons = document.querySelectorAll('.delete_order_icon');
+    for (let i = 0; i < orderDeleteButtons.length; i++) {
+        let thisButtonId = orderDeleteButtons[i].id;
+        orderDeleteButtons[i] !== null ? orderDeleteButtons[i].addEventListener('click', () => deleteOrder(thisButtonId)) : null;
+    }
+
     let sortByIncreaseCostButton = document.getElementById('sort_by_increase_cost');
     sortByIncreaseCostButton !== null ? sortByIncreaseCostButton.onclick = () => sortByIcreaseCost() : null;
     let sortByDecreaseCostButton = document.getElementById('sort_by_decrease_cost');
@@ -38,13 +44,45 @@ function initialize() {
     let newPizzaPicture = document.getElementById('new_pizza_picture');
     newPizzaPicture.onblur = () => checkPicture(newPizzaPicture.value);
 
-    let orderDeleteButtons = document.querySelectorAll('.delete_order_icon');
-    for (let i = 0; i < orderDeleteButtons.length; i++) {
-        let thisButtonId = orderDeleteButtons[i].id;
-        orderDeleteButtons[i] !== null ? orderDeleteButtons[i].addEventListener('click', () => deleteOrder(thisButtonId)) : null;
-    }
+    const form = document.getElementById('add_pizza_form');
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        let isSuccess = document.getElementById('modal_is_success');
+        const formData = new FormData(this);
+        isValid = await validateModal(this); 
+        if (isValid) {
+            isSuccess.classList.remove('block_visible');
+            isSuccess.classList.add('block_hidden');
+            addPizza(formData);
+            location.href = location.href;
+        } else {
+            isSuccess.classList.remove('block_hidden');
+            isSuccess.classList.add('block_visible');
+        }
+    })
 }
 
+async function validateModal(form) {
+    let newPizzaPicture = document.getElementById('new_pizza_picture');
+    isExist = await checkPicture(newPizzaPicture.value);
+    isEmptyField = false; 
+    let fields = form.querySelectorAll('.pizza_data');
+    for (let i = 0; i < fields.length; i++) {
+        fields[i].classList.remove('incorrect_pizza_data');
+        if (!fields[i].value) {
+            isEmptyField = true;
+            fields[i].classList.add('incorrect_pizza_data');
+        }
+    }
+    return isExist && !isEmptyField; 
+}
+
+async function addPizza(formData) {
+    await fetch('/add/pizza', {
+        method: 'POST',
+        body: formData
+    })
+}
 async function checkPicture(newPizzaPicture) {
     let body = new FormData();
     newPizzaPicture = newPizzaPicture.slice(0, newPizzaPicture.length - 4);
@@ -60,10 +98,12 @@ async function checkPicture(newPizzaPicture) {
             wrongPicMessage.classList.remove('block_hidden');
             wrongPicMessage.classList.add('block_visible');
             wrongPicMessage.innerHTML = 'Файл не найден';
+            return false;
         } else {
             wrongPicMessage.innerHTML = '<img src="img/' + newPizzaPicture + '.jpg" class="modal_picture">'
             wrongPicMessage.classList.remove('block_hidden');
             wrongPicMessage.classList.add('block_visible');
+            return true;
         }
 }
 async function updateStatus(id) {

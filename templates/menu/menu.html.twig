@@ -32,9 +32,6 @@
                             <input type="radio" name="options"  class="registration button_sort" id="sort_by_decrease_cost" autocomplete="off"> По убыванию
                           </label>
                         </div>
-                        <!-- <span class="sort_by">Цена по:</span>
-                        <button type="button" class="registration button_sort" id="sort_by_increase_cost">По возрастанию</button>
-                        <button type="button" class="registration button_sort" id="sort_by_decrease_cost">По убыванию</button> -->
                     </div>
                 {% endif %}
                 <div class="row" id="pizza_list">
@@ -99,8 +96,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="{{ path('add_new_pizza') }}" method="POST" id="add_pizza_form" class="add_pizza_form">
-                <!-- <input type="text" name="image" class="pizza_data picture_name" id="new_pizza_picture" placeholder="Картинка" required/>  -->
+            <form id="add_pizza_form" class="add_pizza_form">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon3">Dolgo_pizza/public/img/</span>
@@ -110,10 +106,10 @@
                 <div class="wrong_mess block_hidden" id="wrong_pic_modal" ></div>
                 <input type="text" name="title" class="pizza_data" placeholder="Название" required/> 
                 <textarea name="description" class="pizza_data" placeholder="Описание"></textarea> 
-                <input type="text" name="cost" class="pizza_data" placeholder="Цена" required/> 
-                
+                <input type="text" name="cost" class="pizza_data" placeholder="Цена" required/>
                 <button type="submit" class="btn btn-warning modal_button">Добавить</button>
-              </form>
+                <span class="block_hidden incorrect_input" id="modal_is_success">Некоректные данные</span>
+            </form>
           </div> 
         </div>
       </div>

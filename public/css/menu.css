@@ -7,6 +7,10 @@
 {
     visibility: hidden;
 }
+.incorrect_input
+{
+    color: red;
+}
 /*=========================НАВИГАЦИЯ============================*/
 .nav {
     margin: 25px 0 0 73px;
@@ -205,11 +209,15 @@ th, td {
     width: 100%;
     display: block;
     margin: 0 auto 21px;
+    box-sizing: border-box;
+}
+.incorrect_pizza_data
+{
+    border: 1px solid red;
 }
 .modal_button
 {
     display: block;
-    /* margin: 0 auto; */
 }
 .wrong_mess
 {
@@ -222,14 +230,9 @@ th, td {
 }
 .button_sort
 {
-    /* height: 32px; */
     padding: 5px;
     font: normal normal 12px/1.5 Roboto;
     box-sizing: border-box;
-    /* margin-top: 14px; */
-    /* position: absolute; */
-    /* left: 90%; */
-    /* top: 35%; */
 }
 .button_sort:focus
 {
@@ -237,6 +240,5 @@ th, td {
 }
 .sort_by
 {
-    /* margin-top: -15px; */
     margin-right: 10px;
 }
